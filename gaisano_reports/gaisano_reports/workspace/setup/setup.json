@@ -1,6 +1,6 @@
 {
  "charts": [],
- "content": "[{\"id\":\"NK4JkxuIf8\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Setup</span>\",\"col\":12}}]",
+ "content": "[{\"id\":\"NK4JkxuIf8\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Setup</span>\",\"col\":12}},{\"id\":\"ASIEDp7YfT\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Clickhouse Settings\",\"col\":3}}]",
  "creation": "2025-05-02 12:58:26.822026",
  "custom_blocks": [],
  "docstatus": 0,
@@ -13,7 +13,7 @@
  "is_hidden": 0,
  "label": "Setup",
  "links": [],
- "modified": "2025-05-02 13:20:18.579081",
+ "modified": "2025-05-02 13:53:36.893578",
  "modified_by": "Administrator",
  "module": "Gaisano Reports",
  "name": "Setup",
@@ -24,6 +24,14 @@
  "quick_lists": [],
  "roles": [],
  "sequence_id": 2.0,
- "shortcuts": [],
+ "shortcuts": [
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Clickhouse Settings",
+   "link_to": "Clickhouse Settings",
+   "type": "DocType"
+  }
+ ],
  "title": "Setup"
 }
