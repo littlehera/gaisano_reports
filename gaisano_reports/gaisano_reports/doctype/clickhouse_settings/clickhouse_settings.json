@@ -5,19 +5,58 @@
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
-  "section_break_mvim"
+  "clickhouse_settings_section",
+  "hostname",
+  "username",
+  "password",
+  "port_no",
+  "test_conn"
  ],
  "fields": [
   {
-   "fieldname": "section_break_mvim",
-   "fieldtype": "Section Break"
+   "fieldname": "clickhouse_settings_section",
+   "fieldtype": "Section Break",
+   "label": "Clickhouse Settings"
+  },
+  {
+   "fieldname": "hostname",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Hostname/IP",
+   "reqd": 1
+  },
+  {
+   "fieldname": "username",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Username",
+   "reqd": 1
+  },
+  {
+   "fieldname": "password",
+   "fieldtype": "Password",
+   "in_list_view": 1,
+   "label": "Password",
+   "reqd": 1
+  },
+  {
+   "fieldname": "port_no",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Port Number",
+   "reqd": 1
+  },
+  {
+   "fieldname": "test_conn",
+   "fieldtype": "Button",
+   "label": "Test Connection"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2025-05-02 13:22:16.620055",
+ "modified": "2025-05-02 13:41:46.684068",
  "modified_by": "Administrator",
  "module": "Gaisano Reports",
  "name": "Clickhouse Settings",
