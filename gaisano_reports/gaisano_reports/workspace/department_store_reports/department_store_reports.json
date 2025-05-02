@@ -1,0 +1,33 @@
+{
+ "charts": [],
+ "content": "[{\"type\":\"header\",\"data\":{\"text\":\"Department Store Reports\"}}]",
+ "creation": "2025-05-02 12:58:01.689893",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "table",
+ "idx": 0,
+ "indicator_color": "",
+ "is_hidden": 0,
+ "label": "Department Store Reports",
+ "links": [],
+ "modified": "2025-05-02 13:20:51.207260",
+ "modified_by": "Administrator",
+ "module": "Gaisano Reports",
+ "name": "Department Store Reports",
+ "number_cards": [],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [
+  {
+   "role": "Department Store User"
+  }
+ ],
+ "sequence_id": 24.0,
+ "shortcuts": [],
+ "title": "Department Store Reports"
+}

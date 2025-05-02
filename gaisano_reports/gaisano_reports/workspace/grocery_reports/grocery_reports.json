@@ -1,0 +1,33 @@
+{
+ "charts": [],
+ "content": "[{\"type\":\"header\",\"data\":{\"text\":\"Grocery Reports\"}}]",
+ "creation": "2025-05-02 12:57:31.819901",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "table_2",
+ "idx": 0,
+ "indicator_color": "",
+ "is_hidden": 0,
+ "label": "Grocery Reports",
+ "links": [],
+ "modified": "2025-05-02 13:20:37.725993",
+ "modified_by": "Administrator",
+ "module": "Gaisano Reports",
+ "name": "Grocery Reports",
+ "number_cards": [],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [
+  {
+   "role": "Grocery User"
+  }
+ ],
+ "sequence_id": 23.0,
+ "shortcuts": [],
+ "title": "Grocery Reports"
+}
