@@ -3,6 +3,11 @@
 
 frappe.query_reports["Grocery Category Growth Report"] = {
 	"filters": [
-
+		{
+		"fieldname": "ref_date",
+		"fieldtype": "Date",
+		"label": "Reference Date",
+		"reqd": 1
+		}
 	]
 };
