@@ -55,6 +55,8 @@ def get_data(ref_date):
 	rows = client.query(catquery).result_rows
 
 	for row in rows:
+		if (row[0] is None) or (row[0]==""):
+			continue
 		lyamount = get_amount(lyrows,row[0])
 		tyamount = get_amount(tyrows,row[0])
 		data.append({

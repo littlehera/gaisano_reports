@@ -1,6 +1,6 @@
 {
  "charts": [],
- "content": "[{\"type\":\"header\",\"data\":{\"text\":\"Grocery Reports\"}}]",
+ "content": "[{\"id\":\"PZcUtFt-4z\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Grocery Reports</span>\",\"col\":12}},{\"id\":\"hp-jTqAyOH\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Category Growth Report\",\"col\":3}}]",
  "creation": "2025-05-02 12:57:31.819901",
  "custom_blocks": [],
  "docstatus": 0,
@@ -13,7 +13,7 @@
  "is_hidden": 0,
  "label": "Grocery Reports",
  "links": [],
- "modified": "2025-05-02 13:20:37.725993",
+ "modified": "2025-06-03 15:40:57.004225",
  "modified_by": "Administrator",
  "module": "Gaisano Reports",
  "name": "Grocery Reports",
@@ -28,6 +28,15 @@
   }
  ],
  "sequence_id": 23.0,
- "shortcuts": [],
+ "shortcuts": [
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Category Growth Report",
+   "link_to": "Grocery Category Growth Report",
+   "report_ref_doctype": "Role",
+   "type": "Report"
+  }
+ ],
  "title": "Grocery Reports"
 }

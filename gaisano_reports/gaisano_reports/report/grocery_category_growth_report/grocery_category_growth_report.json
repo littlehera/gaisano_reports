@@ -6,11 +6,19 @@
  "disabled": 0,
  "docstatus": 0,
  "doctype": "Report",
- "filters": [],
+ "filters": [
+  {
+   "fieldname": "ref_date",
+   "fieldtype": "Date",
+   "label": "Reference Date",
+   "mandatory": 1,
+   "wildcard_filter": 0
+  }
+ ],
  "idx": 0,
  "is_standard": "Yes",
  "letterhead": null,
- "modified": "2025-05-30 13:08:18.555515",
+ "modified": "2025-06-03 16:18:35.403185",
  "modified_by": "Administrator",
  "module": "Gaisano Reports",
  "name": "Grocery Category Growth Report",
