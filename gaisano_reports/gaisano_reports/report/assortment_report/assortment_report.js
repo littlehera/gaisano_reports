@@ -3,6 +3,24 @@
 
 frappe.query_reports["Assortment Report"] = {
 	"filters": [
-
+		{
+		"fieldname": "from_date",
+		"fieldtype": "Date",
+		"label": "From Date",
+		"reqd": 1
+		},
+		{
+		"fieldname": "to_date",
+		"fieldtype": "Date",
+		"label": "To Date",
+		"reqd": 1
+		},
+		{
+		"fieldname": "branch",
+		"fieldtype": "Link",
+		"label": "Branch",
+		"options": "Branch",
+		"reqd": 0
+		}
 	]
 };
