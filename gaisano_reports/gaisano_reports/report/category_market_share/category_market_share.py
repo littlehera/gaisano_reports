@@ -15,12 +15,9 @@ def execute(filters=None):
 	data = get_ctrl(data)
 
 	columns = [
-		{"label": "Item", "fieldname": "item_name", "fieldtype": "Data", "width": 300},
 		{"label": "Category", "fieldname": "category", "fieldtype": "Data", "width": 180},
-		{"label": "Classification", "fieldname": "classification", "fieldtype": "Data", "width": 180},
-		{"label": "Subclass", "fieldname": "subclass", "fieldtype": "Data", "width": 180},
-		{"label": "Marketshare %", "fieldname": "marketshare", "fieldtype": "Float","width": 180},
-		{"label": "% Ctrl", "fieldname": "ctrl", "fieldtype": "Float", "width": 180}
+		{"label": "Marketshare %", "fieldname": "marketshare", "fieldtype": "Float", "Precision":2, "width": 180},
+		{"label": "% Ctrl", "fieldname": "ctrl", "fieldtype": "Float", "Precision":2, "width": 180}
 	]
 
 	return columns, data
@@ -44,8 +41,8 @@ def get_data(from_date, to_date, branch):
 
 	q_total = """(select sum(amount) from greports.pos_data pos join greports.item_class_each cat on pos.barcode = cat.barcode %s)"""%(where_clause)
 
-	q_item_list = """select DISTINCT cat.item_name, 100*sum(pos.amount)/%s as marketshare, cat.category, cat.classification, cat.subclass from greports.item_class_each cat
-					join greports.pos_data pos on pos.barcode = cat.barcode %s group by cat.category, cat.classification, cat.subclass, cat.item_name
+	q_item_list = """select distinct cat.category, 100*sum(pos.amount)/%s as marketshare from greports.item_class_each cat
+					join greports.pos_data pos on pos.barcode = cat.barcode %s group by cat.category
 					order by marketshare desc
 					"""%(q_total, where_clause)
 	item_list = client.query(q_item_list).result_rows
@@ -53,10 +50,7 @@ def get_data(from_date, to_date, branch):
 	for row in item_list:
 
 		data.append({
-			"item_name": row[0],
-			"category":row[2],
-			"classification":row[3],
-			"subclass": row[4],
+			"category":row[0],
 			"marketshare": float(row[1])
 		})
 	
@@ -69,5 +63,3 @@ def get_ctrl(data):
 		else:
 			data[i]['ctrl'] = data[i-1]['ctrl']+data[i]['marketshare']
 	return data
-
-#TODO: show ALL ITEMS, even those without sales. (use barter product)
