@@ -10,8 +10,6 @@ def execute(filters=None):
 
 	ref_date = filters.get('ref_date')
 	branch = filters.get('branch') if filters.get('branch') is not None else ""
-
-	print("##################### %s ######################"%branch)
 	
 	data = get_data(ref_date, branch)
 	columns = [
