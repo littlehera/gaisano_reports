@@ -9,8 +9,11 @@ def execute(filters=None):
 	columns, data = [], []
 
 	ref_date = filters.get('ref_date')
+	branch = filters.get('branch') if filters.get('branch') is not None else ""
+
+	print("##################### %s ######################"%branch)
 	
-	data = get_data(ref_date)
+	data = get_data(ref_date, branch)
 	columns = [
 		{"label": "Category", "fieldname": "category", "fieldtype": "Data", "width": 280},
 		{"label": str(datetime.datetime.strptime(ref_date,"%Y-%m-%d").year-1), "fieldname": "ly", "fieldtype": "Float", "precision":2, "width": 200},
@@ -20,11 +23,14 @@ def execute(filters=None):
 
 	return columns, data
 
-def get_data(ref_date):
+def get_data(ref_date, branch):
 
 	data = []
 	tylist = []
+	branch_clause = ""
 
+	if branch != "":
+		branch_clause = " AND branch = %s"%("'"+branch+"'")
 
 	today = datetime.datetime.strptime(ref_date,"%Y-%m-%d")
 	
@@ -40,14 +46,15 @@ def get_data(ref_date):
 
 	#the LAST YEAR query: Get the amount per category for last year
 	lyquery = """SELECT cat.category, sum(pos.amount) from greports.item_class_each cat join greports.pos_data pos on cat.barcode = pos.barcode
-				where trans_date between makeDate(%d,%d,%d) AND makeDate(%d,%d,%d)
-				group by cat.category"""%(lyFromDate.year, lyFromDate.month, lyFromDate.day, lyToDate.year, lyToDate.month, lyToDate.day)
+				where trans_date between makeDate(%d,%d,%d) AND makeDate(%d,%d,%d) %s
+				group by cat.category"""%(lyFromDate.year, lyFromDate.month, lyFromDate.day, lyToDate.year, lyToDate.month, lyToDate.day, branch_clause)
+	print(lyquery)
 	lyrows = client.query(lyquery).result_rows
 
 	#the THIS YEAR query: Get the amount per category for this year
 	tyquery = """SELECT cat.category, sum(pos.amount) from greports.item_class_each cat join greports.pos_data pos on cat.barcode = pos.barcode
-				where trans_date between makeDate(%d,%d,%d) AND makeDate(%d,%d,%d)
-				group by cat.category"""%(tyFromDate.year, tyFromDate.month, tyFromDate.day, tyToDate.year, tyToDate.month, tyToDate.day)
+				where trans_date between makeDate(%d,%d,%d) AND makeDate(%d,%d,%d) %s
+				group by cat.category"""%(tyFromDate.year, tyFromDate.month, tyFromDate.day, tyToDate.year, tyToDate.month, tyToDate.day, branch_clause)
 	
 	tyrows = client.query(tyquery).result_rows
 
