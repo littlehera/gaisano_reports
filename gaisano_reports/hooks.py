@@ -148,23 +148,23 @@ app_license = "mit"
 # Scheduled Tasks
 # ---------------
 
-# scheduler_events = {
-# 	"all": [
-# 		"gaisano_reports.tasks.all"
-# 	],
-# 	"daily": [
-# 		"gaisano_reports.tasks.daily"
-# 	],
-# 	"hourly": [
-# 		"gaisano_reports.tasks.hourly"
-# 	],
-# 	"weekly": [
-# 		"gaisano_reports.tasks.weekly"
-# 	],
-# 	"monthly": [
-# 		"gaisano_reports.tasks.monthly"
-# 	],
-# }
+scheduler_events = {
+	# "all": [
+	# 	"gaisano_reports.tasks.all"
+	# ],
+	"daily": [
+		"gaisano_reports.clickhouse_sync.supplier_sync"
+	] #,
+	# "hourly": [
+	# 	"gaisano_reports.tasks.hourly"
+	# ],
+	# "weekly": [
+	# 	"gaisano_reports.tasks.weekly"
+	# ],
+	# "monthly": [
+	# 	"gaisano_reports.tasks.monthly"
+	# ],
+}
 
 # Testing
 # -------

@@ -1,0 +1,134 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:sup_id",
+ "creation": "2025-09-25 14:02:23.555966",
+ "doctype": "DocType",
+ "document_type": "System",
+ "engine": "InnoDB",
+ "field_order": [
+  "supplier_details_section",
+  "sup_id",
+  "sup_code",
+  "supplier_name",
+  "active",
+  "column_break_snqp",
+  "cycle_days_a",
+  "cycle_days_b",
+  "offtake_days"
+ ],
+ "fields": [
+  {
+   "fieldname": "sup_id",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Supplier ID",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "sup_code",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Supplier Code",
+   "reqd": 1
+  },
+  {
+   "fieldname": "supplier_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Supplier Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "cycle_days_a",
+   "fieldtype": "Int",
+   "label": "Cycle Days (A SKUs)",
+   "reqd": 1
+  },
+  {
+   "fieldname": "cycle_days_b",
+   "fieldtype": "Int",
+   "label": "Cycle Days (B SKUs)",
+   "reqd": 1
+  },
+  {
+   "fieldname": "offtake_days",
+   "fieldtype": "Int",
+   "label": "Offtake Days",
+   "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "active",
+   "fieldtype": "Check",
+   "label": "Active?"
+  },
+  {
+   "fieldname": "supplier_details_section",
+   "fieldtype": "Section Break",
+   "label": "Supplier Details"
+  },
+  {
+   "fieldname": "column_break_snqp",
+   "fieldtype": "Column Break"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2025-09-25 14:44:36.446264",
+ "modified_by": "Administrator",
+ "module": "Gaisano Reports",
+ "name": "Supplier",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Grocery User",
+   "share": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Department Store User",
+   "share": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Executive",
+   "share": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "show_title_field_in_link": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "supplier_name",
+ "track_changes": 1
+}

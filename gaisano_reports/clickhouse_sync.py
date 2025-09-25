@@ -5,17 +5,56 @@ def truncate_frappe_table(tablename):
 	frappe.db.sql("""TRUNCATE table %s""",(tablename))
 	frappe.db.commit()
 
-#BARTER CATEGORIES SYNC
+# #BARTER CATEGORIES SYNC
+# def category_sync():
+# 	client = get_clickhouse_client()
+# 	query = """SELECT * from greports.category"""
+# 	rows = client.query(query).result_rows
+# 	for row in rows:
+# 		print(row)
 
+#BARTER SUPPLIER SYNC
+def supplier_sync():
+	client = get_clickhouse_client()
+	query = """SELECT * from greports.supplier"""
+	rows = client.query(query).result_rows
+	for row in rows:
+		print(row)
+		if supplier_in_db(row[0]):
+			print("update supplier")
+			item_doc = frappe.get_doc("Supplier", {"sup_id": row[0]})
+			item_doc.sup_code = row[1]
+			item_doc.supplier_name = row[2]
+			item_doc.cycle_days_a = int(row[3])
+			item_doc.cycle_days_b = int(row[4])
+			item_doc.offtake_days = int(row[7])
+			item_doc.active = 1 if row[5] == 'A' else 0
+			item_doc.save(ignore_permissions=True)
+			frappe.db.commit()
+		else:
+			try:
+				print("insert supplier")
+				sup = frappe.get_doc({
+					"doctype": "Supplier",
+					"sup_id": row[0],
+					"sup_code": row[1],
+					"supplier_name": row[2],
+					"cycle_days_a": int(row[3]),
+					"cycle_days_b": int(row[4]),
+					"offtake_days": int(row[7]),
+					"active": 1 if row[5] == 'A' else 0
+				})
+			except Exception as e:
+				print(f"Error creating Supplier {row[2]}: {e}")
+			else:
+				sup.insert(ignore_permissions=True)
+				frappe.db.commit()
+				print(f"Supplier {row[2]} created successfully.")
+	#return data
 
-########## CODE KODIGO
-	# client = get_clickhouse_client()
-	# query = """SELECT distinct category, classification, subclass from greports.item_class_each order by category asc, classification asc, subclass asc"""
-	# rows = client.query(query).result_rows
-	# for row in rows:
-	# 	data.append({
-	# 		"category":row[0],
-	# 		"classification":row[1],
-	# 		"subclass":row[2]
-	# 	})
-	# return data
+def supplier_in_db(sup_id):
+	sup = frappe.db.get_value("Supplier", {"sup_id": sup_id}, "name")
+	if sup:
+		return True
+	else:
+		return False
