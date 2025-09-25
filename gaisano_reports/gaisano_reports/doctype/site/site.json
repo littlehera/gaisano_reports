@@ -1,0 +1,110 @@
+{
+ "actions": [],
+ "allow_import": 1,
+ "allow_rename": 1,
+ "autoname": "field:site_id",
+ "creation": "2025-09-25 15:08:53.190597",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "site_id",
+  "site_code",
+  "ref_code",
+  "site_name",
+  "active",
+  "site_type_code",
+  "business_unit",
+  "company",
+  "branch_mapping"
+ ],
+ "fields": [
+  {
+   "fieldname": "site_id",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Site ID",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "site_code",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Site Code",
+   "reqd": 1
+  },
+  {
+   "fieldname": "site_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Site Name",
+   "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "active",
+   "fieldtype": "Check",
+   "label": "Active"
+  },
+  {
+   "fieldname": "site_type_code",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Site Type",
+   "reqd": 1
+  },
+  {
+   "fieldname": "business_unit",
+   "fieldtype": "Link",
+   "label": "Business Unit",
+   "options": "Business Unit",
+   "reqd": 1
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Data",
+   "label": "Company",
+   "reqd": 1
+  },
+  {
+   "fieldname": "ref_code",
+   "fieldtype": "Data",
+   "label": "RefCode",
+   "reqd": 1
+  },
+  {
+   "fieldname": "branch_mapping",
+   "fieldtype": "Link",
+   "label": "Branch Mapping",
+   "options": "Branch"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2025-09-25 16:55:40.527991",
+ "modified_by": "Administrator",
+ "module": "Gaisano Reports",
+ "name": "Site",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "search_fields": "site_id,ref_code,site_name,branch_mapping",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

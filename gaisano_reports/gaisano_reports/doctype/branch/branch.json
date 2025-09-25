@@ -1,5 +1,6 @@
 {
  "actions": [],
+ "allow_import": 1,
  "allow_rename": 1,
  "autoname": "field:branch_name",
  "creation": "2025-06-04 10:53:36.722866",
@@ -21,7 +22,7 @@
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-06-04 12:58:16.921065",
+ "modified": "2025-09-25 15:37:15.977291",
  "modified_by": "Administrator",
  "module": "Gaisano Reports",
  "name": "Branch",
@@ -46,7 +47,25 @@
    "print": 1,
    "read": 1,
    "report": 1,
-   "role": "Sales User",
+   "role": "Grocery User",
+   "share": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Department Store User",
+   "share": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Executive",
    "share": 1
   }
  ],

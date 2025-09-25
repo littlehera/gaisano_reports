@@ -152,9 +152,9 @@ scheduler_events = {
 	# "all": [
 	# 	"gaisano_reports.tasks.all"
 	# ],
-	"daily": [
-		"gaisano_reports.clickhouse_sync.supplier_sync"
-	] #,
+	# "daily": [
+	# 	"gaisano_reports.clickhouse_sync.supplier_sync"
+	# ] #,
 	# "hourly": [
 	# 	"gaisano_reports.tasks.hourly"
 	# ],
