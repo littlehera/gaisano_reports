@@ -75,7 +75,7 @@ def get_data_total(from_date, to_date, branch, business_unit, supplier):
 	if where_clause != "":
 		where_clause = "WHERE " + where_clause
 
-	group_by = "group by prod.item_name, prod.barcode, prod.base_unit"
+	group_by = "group by prod.item_name, prod.barcode, prod.base_unit, prod.content_qty"
 
 	query = """select prod.item_name, prod.barcode, prod.base_unit, prod.content_qty, sum(pos.quantity) from greports.barter_pos_data pos join greports.product prod 
 	on prod.product_code = pos.product_code %s %s"""% (where_clause, group_by)
