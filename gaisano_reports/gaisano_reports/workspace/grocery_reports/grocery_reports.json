@@ -1,6 +1,6 @@
 {
  "charts": [],
- "content": "[{\"id\":\"PZcUtFt-4z\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Grocery Reports</span>\",\"col\":12}},{\"id\":\"CowCaUjPWF\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Assortment Report\",\"col\":3}},{\"id\":\"fGoOu-HFUW\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Grocery Category Growth Report\",\"col\":4}},{\"id\":\"OeDtCeVW9c\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Category Market Share\",\"col\":3}},{\"id\":\"VV-FHoUOOY\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Service Level Report\",\"col\":3}}]",
+ "content": "[{\"id\":\"PZcUtFt-4z\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Grocery Reports</span>\",\"col\":12}},{\"id\":\"CowCaUjPWF\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Assortment Report\",\"col\":3}},{\"id\":\"OeDtCeVW9c\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Category Market Share\",\"col\":3}},{\"id\":\"fGoOu-HFUW\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Grocery Category Growth Report\",\"col\":4}},{\"id\":\"fXYjh38RpM\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Offtake Report\",\"col\":3}},{\"id\":\"VV-FHoUOOY\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Service Level Report\",\"col\":3}}]",
  "creation": "2025-05-02 12:57:31.819901",
  "custom_blocks": [],
  "docstatus": 0,
@@ -13,7 +13,7 @@
  "is_hidden": 0,
  "label": "Grocery Reports",
  "links": [],
- "modified": "2025-09-25 15:05:15.637945",
+ "modified": "2025-09-26 17:50:01.723374",
  "modified_by": "Administrator",
  "module": "Gaisano Reports",
  "name": "Grocery Reports",
@@ -34,6 +34,14 @@
    "doc_view": "List",
    "label": "Service Level Report",
    "link_to": "Service Level Report",
+   "report_ref_doctype": "Supplier",
+   "type": "Report"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Offtake Report",
+   "link_to": "Offtake Report",
    "report_ref_doctype": "Supplier",
    "type": "Report"
   },
