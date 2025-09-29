@@ -8,7 +8,21 @@ frappe.query_reports["Offtake Report"] = {
 		"fieldtype": "Select",
 		"label": "Report Type",
 		"options": ["Total Only", "Past 90 Days"],
-		"reqd": 1
+		"reqd": 1,
+		"on_change": function(query_report){
+			var report_type = frappe.query_report.get_filter_value('report_type');
+			if (report_type == "Past 90 Days"){
+				frappe.query_report.set_filter_value('to_date',frappe.datetime.get_today());
+				var from_date = frappe.datetime.add_days(frappe.datetime.get_today(),-90);
+				frappe.query_report.set_filter_value('from_date',from_date);
+				frappe.query_report.refresh()
+			}
+			else{
+				frappe.query_report.set_filter_value('from_date','');
+				frappe.query_report.set_filter_value('to_date','');
+				frappe.query_report.refresh()
+			}
+			}
 		},
 		{
 		"fieldname": "from_date",
@@ -27,6 +41,7 @@ frappe.query_reports["Offtake Report"] = {
 			if (report_type == "Past 90 Days"){
 				var from_date = frappe.datetime.add_days(to_date,-90);
 				frappe.query_report.set_filter_value('from_date',from_date);
+				frappe.query_report.refresh()
 			}
 			}
 		},
