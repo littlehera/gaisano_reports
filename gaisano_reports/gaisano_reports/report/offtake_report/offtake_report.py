@@ -30,6 +30,7 @@ def get_columns(report_type, from_date, to_date):
 			{"label": "Item Name", "fieldname": "item_name", "fieldtype": "Data", "width": 250},
 			{"label": "Barcode", "fieldname": "barcode", "fieldtype": "Data", "width": 200},
 			{"label": "UOM", "fieldname": "uom", "fieldtype": "Data", "width": 60},
+			{"label": "Packing", "fieldname": "content_qty", "fieldtype": "Data", "width": 60},
 			{"label": "Total Offtake", "fieldname": "total_offtake", "fieldtype": "Float", "precision":2, "width": 120},
 			{"label": "Ave. Daily Offtake", "fieldname": "ave_daily_offtake", "fieldtype": "Float", "precision":2, "width": 120},
 		]
@@ -41,6 +42,7 @@ def get_columns(report_type, from_date, to_date):
 			{"label": "Item Name", "fieldname": "item_name", "fieldtype": "Data", "width": 250},
 			{"label": "Barcode", "fieldname": "barcode", "fieldtype": "Data", "width": 200},
 			{"label": "UOM", "fieldname": "uom", "fieldtype": "Data", "width": 60},
+			{"label": "Packing", "fieldname": "content_qty", "fieldtype": "Data", "width": 60},
 			{"label": m1, "fieldname": "m1", "fieldtype": "Float", "precision":2, "width": 120},
 			{"label": m2, "fieldname": "m2", "fieldtype": "Float", "precision":2, "width": 120},
 			{"label": m3, "fieldname": "m3", "fieldtype": "Float", "precision":2, "width": 120},
@@ -75,7 +77,7 @@ def get_data_total(from_date, to_date, branch, business_unit, supplier):
 
 	group_by = "group by prod.item_name, prod.barcode, prod.base_unit"
 
-	query = """select prod.item_name, prod.barcode, prod.base_unit, sum(pos.quantity) from greports.barter_pos_data pos join greports.product prod 
+	query = """select prod.item_name, prod.barcode, prod.base_unit, prod.content_qty, sum(pos.quantity) from greports.barter_pos_data pos join greports.product prod 
 	on prod.product_code = pos.product_code %s %s"""% (where_clause, group_by)
 
 	print(query)
@@ -88,8 +90,9 @@ def get_data_total(from_date, to_date, branch, business_unit, supplier):
 			"item_name": row[0],
 			"barcode": row[1],
 			"uom": row[2],
-			"total_offtake": row[3],
-			"ave_daily_offtake": row[3] / (to_date - from_date).days
+			"content_qty": row[3],
+			"total_offtake": row[4],
+			"ave_daily_offtake": row[4] / (to_date - from_date).days
 		})
 
 	return data
@@ -121,6 +124,7 @@ def get_data_3months(from_date, to_date, branch, business_unit, supplier):
 			"item_name": row["item_name"],
 			"barcode": row["barcode"],
 			"uom": row["uom"],
+			"content_qty": row["content_qty"],
 			"total_offtake": row["total_offtake"],
 			"ave_daily_offtake": row["total_offtake"]/90,
 			"m1": get_month_sales(m1_data, row["barcode"]),
