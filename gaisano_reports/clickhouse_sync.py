@@ -13,6 +13,10 @@ def truncate_frappe_table(tablename):
 # 	for row in rows:
 # 		print(row)
 
+def execute_sync():
+	site_sync()
+	supplier_sync()
+
 #BARTER SITE SYNC
 def site_sync():
 	client = get_clickhouse_client()
