@@ -1,6 +1,6 @@
 {
  "charts": [],
- "content": "[{\"id\":\"vC48NRe9hI\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Department Store Reports</span>\",\"col\":12}},{\"id\":\"zghLL-F4FT\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Service Level Report\",\"col\":3}}]",
+ "content": "[{\"id\":\"vC48NRe9hI\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Department Store Reports</span>\",\"col\":12}},{\"id\":\"Blj44nK5_L\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Offtake Report\",\"col\":3}},{\"id\":\"zghLL-F4FT\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Service Level Report\",\"col\":3}}]",
  "creation": "2025-05-02 12:58:01.689893",
  "custom_blocks": [],
  "docstatus": 0,
@@ -13,7 +13,7 @@
  "is_hidden": 0,
  "label": "Department Store Reports",
  "links": [],
- "modified": "2025-10-01 15:11:45.232499",
+ "modified": "2025-10-01 15:23:31.478696",
  "modified_by": "Administrator",
  "module": "Gaisano Reports",
  "name": "Department Store Reports",
@@ -34,6 +34,14 @@
    "doc_view": "List",
    "label": "Service Level Report",
    "link_to": "Service Level Report",
+   "report_ref_doctype": "Supplier",
+   "type": "Report"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Offtake Report",
+   "link_to": "Offtake Report",
    "report_ref_doctype": "Supplier",
    "type": "Report"
   }

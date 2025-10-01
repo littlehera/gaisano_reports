@@ -15,10 +15,10 @@ def execute(filters=None):
 	business_unit = filters.get("business_unit")
 	supplier = filters.get("supplier")
 
-	if report_type == "Total Only":
-		data = get_data_total(from_date, to_date, branch, business_unit, supplier)
-	else:
+	if report_type == "Past 90 Days":
 		data = get_data_3months(from_date, to_date, branch, business_unit, supplier)
+	else:
+		data = get_data_total(from_date, to_date, branch, business_unit, supplier)
 	columns = get_columns(report_type, from_date, to_date)
 
 	return columns, data
@@ -32,9 +32,9 @@ def get_columns(report_type, from_date, to_date):
 			{"label": "UOM", "fieldname": "uom", "fieldtype": "Data", "width": 60},
 			{"label": "Packing", "fieldname": "content_qty", "fieldtype": "Data", "width": 60},
 			{"label": "Total Offtake", "fieldname": "total_offtake", "fieldtype": "Float", "precision":2, "width": 120},
-			{"label": "Ave. Daily Offtake", "fieldname": "ave_daily_offtake", "fieldtype": "Float", "precision":2, "width": 120},
+			{"label": "Ave. Daily Offtake", "fieldname": "ave_daily_offtake", "fieldtype": "Float", "precision":2, "width": 120}
 		]
-	else:
+	elif report_type == "Past 90 Days":
 		m1 = str(from_date.date()) + " to " + str((from_date + datetime.timedelta(days=30)).date())
 		m2 = str((from_date + datetime.timedelta(days=30)).date()) + " to " + str((from_date + datetime.timedelta(days=60)).date())
 		m3 = str((from_date + datetime.timedelta(days=60)).date()) + " to " + str((from_date + datetime.timedelta(days=90)).date())
@@ -47,7 +47,17 @@ def get_columns(report_type, from_date, to_date):
 			{"label": m2, "fieldname": "m2", "fieldtype": "Float", "precision":2, "width": 120},
 			{"label": m3, "fieldname": "m3", "fieldtype": "Float", "precision":2, "width": 120},
 			{"label": "Total Offtake", "fieldname": "total_offtake", "fieldtype": "Float", "precision":2, "width": 120},
+			{"label": "Ave. Daily Offtake", "fieldname": "ave_daily_offtake", "fieldtype": "Float", "precision":2, "width": 120}
+		]
+	else: # Months Supply
+		columns = [
+			{"label": "Item Name", "fieldname": "item_name", "fieldtype": "Data", "width": 250},
+			{"label": "Barcode", "fieldname": "barcode", "fieldtype": "Data", "width": 200},
+			{"label": "UOM", "fieldname": "uom", "fieldtype": "Data", "width": 60},
+			{"label": "Packing", "fieldname": "content_qty", "fieldtype": "Data", "width": 60},
+			{"label": "Total Offtake", "fieldname": "total_offtake", "fieldtype": "Float", "precision":2, "width": 120},
 			{"label": "Ave. Daily Offtake", "fieldname": "ave_daily_offtake", "fieldtype": "Float", "precision":2, "width": 120},
+			{"label": "Ave. Monthly Offtake", "fieldname": "ave_monthly_offtake", "fieldtype": "Float", "precision":2, "width": 120}
 		]
 	return columns
 
@@ -92,7 +102,8 @@ def get_data_total(from_date, to_date, branch, business_unit, supplier):
 			"uom": row[2],
 			"content_qty": row[3],
 			"total_offtake": row[4],
-			"ave_daily_offtake": row[4] / (to_date - from_date).days
+			"ave_daily_offtake": row[4] / (to_date - from_date).days,
+			"ave_monthly_offtake": float(row[4]) / float((to_date - from_date).days / 30)
 		})
 
 	return data
