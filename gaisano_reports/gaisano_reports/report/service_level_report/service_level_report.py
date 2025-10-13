@@ -8,16 +8,21 @@ from gaisano_reports.dbutils import get_clickhouse_client
 def execute(filters=None):
 	columns, data = [], []
 
+	report_type = filters.get("report_type")
 	from_date = datetime.datetime.strptime(filters.get('from_date'),"%Y-%m-%d")
-	to_date = datetime.datetime.strptime(filters.get('to_date'),"%Y-%m-%d")
+	to_date = datetime.datetime.strptime(filters.get('to_date'),"%Y-%m-%d")+datetime.timedelta(days=1)
 	branch = filters.get("branch")
 	business_unit = filters.get("business_unit")
 	supplier = filters.get("supplier")
 
-	data = get_data(from_date, to_date, branch, business_unit, supplier)
+	if report_type == "Total Only":
+		data = get_data(from_date, to_date, branch, business_unit, supplier)
+	else:
+		data = get_monthly_data(from_date, to_date, branch, business_unit, supplier)
+
 	
 	columns = [
-		{"label": "Supplier", "fieldname": "supplier", "fieldtype": "Link", "width": 180, "options":"Supplier"},
+		{"label": "Supplier", "fieldname": "supplier", "fieldtype": "Data", "width": 180},
 		{"label": "PO qty", "fieldname": "po_qty", "fieldtype": "Float", "Precision":2, "width": 180},
 		{"label": "PO Peso Value", "fieldname": "po_peso", "fieldtype": "Float", "Precision":2, "width": 180},
 		{"label": "RR qty", "fieldname": "rr_qty", "fieldtype": "Float", "Precision":2, "width": 180},
@@ -38,7 +43,7 @@ def get_data(from_date, to_date, branch, business_unit, supplier):
 	client = get_clickhouse_client()
 	
 	
-	conditions.append("date >= makeDate(%d, %d, %d) and date <= makeDate(%d, %d, %d)"%(from_date.year, from_date.month, from_date.day, to_date.year, to_date.month, to_date.day))
+	conditions.append("date >= makeDate(%d, %d, %d) and date < makeDate(%d, %d, %d)"%(from_date.year, from_date.month, from_date.day, to_date.year, to_date.month, to_date.day))
 
 	if branch != "":
 		site_codes = get_site_codes(branch, business_unit)
@@ -85,6 +90,19 @@ def get_data(from_date, to_date, branch, business_unit, supplier):
 		"sl_peso": sl_peso
 	})
 
+	return data
+
+def get_monthly_data(from_date,to_date,_branch,business_unit,supplier):
+	data = []
+	date_counter = from_date
+	while date_counter < to_date:
+		from_ = date_counter
+		to_ = datetime.datetime(date_counter.year, date_counter.month+1, 1) if date_counter.month < 12 else datetime.datetime(date_counter.year+1, 1, 1)
+		print(from_,to_)
+		temp = get_data(from_, to_, _branch, business_unit, supplier)
+		temp[0]['supplier']= str(datetime.datetime.strftime(from_, "%B %Y"))
+		data+=temp
+		date_counter = to_
 	return data
 
 def get_site_codes(branch, business_unit):
