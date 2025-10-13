@@ -17,12 +17,8 @@ def execute(filters=None):
 
 	if report_type == "Total Only":
 		data = get_data(from_date, to_date, branch, business_unit, supplier)
-	else:
-		data = get_monthly_data(from_date, to_date, branch, business_unit, supplier)
-
-	
-	columns = [
-		{"label": "Supplier", "fieldname": "supplier", "fieldtype": "Data", "width": 180},
+		columns = [
+		{"label": "Supplier", "fieldname": "supplier", "fieldtype": "Link", "options": "Supplier", "width": 180},
 		{"label": "PO qty", "fieldname": "po_qty", "fieldtype": "Float", "Precision":2, "width": 180},
 		{"label": "PO Peso Value", "fieldname": "po_peso", "fieldtype": "Float", "Precision":2, "width": 180},
 		{"label": "RR qty", "fieldname": "rr_qty", "fieldtype": "Float", "Precision":2, "width": 180},
@@ -30,6 +26,17 @@ def execute(filters=None):
 		{"label": "SL qty %", "fieldname": "sl_qty", "fieldtype": "Float", "Precision":2, "width": 180},
 		{"label": "SL Peso %", "fieldname": "sl_peso", "fieldtype": "Float", "Precision":2, "width": 180}
 	]
+	else:
+		data = get_monthly_data(from_date, to_date, branch, business_unit, supplier)
+		columns = [
+		{"label": "Supplier", "fieldname": "supplier", "fieldtype": "Data", "width": 180},
+		{"label": "PO qty", "fieldname": "po_qty", "fieldtype": "Float", "Precision":2, "width": 180},
+		{"label": "PO Peso Value", "fieldname": "po_peso", "fieldtype": "Float", "Precision":2, "width": 180},
+		{"label": "RR qty", "fieldname": "rr_qty", "fieldtype": "Float", "Precision":2, "width": 180},
+		{"label": "RR Peso Value", "fieldname": "rr_peso", "fieldtype": "Float", "Precision":2, "width": 180},
+		{"label": "SL qty %", "fieldname": "sl_qty", "fieldtype": "Float", "Precision":2, "width": 180},
+		{"label": "SL Peso %", "fieldname": "sl_peso", "fieldtype": "Float", "Precision":2, "width": 180}
+		]
 
 	return columns, data
 
