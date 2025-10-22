@@ -1,6 +1,6 @@
 {
  "charts": [],
- "content": "[{\"id\":\"NK4JkxuIf8\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Setup</span>\",\"col\":12}},{\"id\":\"ASIEDp7YfT\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Clickhouse Settings\",\"col\":4}},{\"id\":\"OAd6wSdt50\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"BXMpNlcW0a\",\"type\":\"card\",\"data\":{\"card_name\":\"Master Data\",\"col\":4}}]",
+ "content": "[{\"id\":\"NK4JkxuIf8\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Setup</span>\",\"col\":12}},{\"id\":\"ASIEDp7YfT\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Clickhouse Settings\",\"col\":4}},{\"id\":\"OAd6wSdt50\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"BXMpNlcW0a\",\"type\":\"card\",\"data\":{\"card_name\":\"Master Data\",\"col\":4}},{\"id\":\"9A_Jv38V2e\",\"type\":\"card\",\"data\":{\"card_name\":\"Item Categorization\",\"col\":4}}]",
  "creation": "2025-05-02 12:58:26.822026",
  "custom_blocks": [],
  "docstatus": 0,
@@ -17,7 +17,7 @@
    "hidden": 0,
    "is_query_report": 0,
    "label": "Master Data",
-   "link_count": 2,
+   "link_count": 3,
    "link_type": "DocType",
    "onboard": 0,
    "type": "Card Break"
@@ -25,7 +25,7 @@
   {
    "hidden": 0,
    "is_query_report": 0,
-   "label": "Branch",
+   "label": "Branches",
    "link_count": 0,
    "link_to": "Branch",
    "link_type": "DocType",
@@ -35,15 +35,74 @@
   {
    "hidden": 0,
    "is_query_report": 0,
-   "label": "Supplier",
+   "label": "Suppliers",
    "link_count": 0,
    "link_to": "Supplier",
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Sites",
+   "link_count": 0,
+   "link_to": "Site",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Item Categorization",
+   "link_count": 4,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Division",
+   "link_count": 0,
+   "link_to": "Item Division",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Department",
+   "link_count": 0,
+   "link_to": "Item Department",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Section",
+   "link_count": 0,
+   "link_to": "Item Section",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Category",
+   "link_count": 0,
+   "link_to": "Item Category",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
   }
  ],
- "modified": "2025-09-25 14:50:40.059066",
+ "modified": "2025-10-13 17:13:11.787013",
  "modified_by": "Administrator",
  "module": "Gaisano Reports",
  "name": "Setup",
