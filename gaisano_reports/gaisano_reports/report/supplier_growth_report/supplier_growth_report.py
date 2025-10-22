@@ -36,11 +36,13 @@ def get_data(from_date, to_date, branch, supplier):
 	ty_data = get_totals(from_date, to_date, branch, supplier)
 
 	growth_amount = ty_data[0] - ly_data[0]
-	growth_percent = (growth_amount / ly_data[0] * 100) if ly_data[0] != 0 else 100
+	growth_percent = (growth_amount / ly_data[0] * 100) if ly_data[0] != 0 else 0
 	data.append({"supplier": supplier if supplier != "" else "All Suppliers", 
 			  "ly_sales": ly_data[0], "ty_sales": ty_data[0],
 			  "growth_amount": growth_amount,
-			  "growth_percent": growth_percent})
+			  "growth_percent": growth_percent,
+			  "ave_sellout": (ty_data[0] / ((to_date - from_date).days)) if (to_date - from_date).days > 0 else 0
+			  })
 
 	return data
 
@@ -79,6 +81,7 @@ def get_columns(from_date, to_date):
 		{"label": ly_string, "fieldname": "ly_sales", "fieldtype": "Float", "Precision":2, "width": 250},
 		{"label": ty_string, "fieldname": "ty_sales", "fieldtype": "Float", "Precision":2, "width": 250},
 		{"label": "Growth Amount", "fieldname": "growth_amount", "fieldtype": "Float", "Precision":2, "width": 250},
-		{"label": "Growth %", "fieldname": "growth_percent", "fieldtype": "Percent", "Precision":2, "width": 180}
+		{"label": "Growth %", "fieldname": "growth_percent", "fieldtype": "Percent", "Precision":2, "width": 180},
+		{"label": "Ave. Daily Sellout", "fieldname": "ave_sellout", "fieldtype": "Float", "Precision":2, "width": 180}
 	]
 	return columns
