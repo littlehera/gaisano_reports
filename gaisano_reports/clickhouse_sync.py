@@ -10,6 +10,8 @@ def execute_sync():
 	supplier_sync()
 	division_sync()
 	department_sync()
+	section_sync()
+	category_sync()
 
 #BARTER SITE SYNC
 def site_sync():
@@ -106,7 +108,7 @@ def division_sync():
 		else:
 			try:
 				print("insert division", row[1])
-				site = frappe.get_doc({
+				division = frappe.get_doc({
 					"doctype": "Item Division",
 					"category_id": row[0],
 					"category_name": row[1],
@@ -115,7 +117,7 @@ def division_sync():
 			except Exception as e:
 				print(f"Error creating Division {row[1]}: {e}")
 			else:
-				site.insert(ignore_permissions=True)
+				division.insert(ignore_permissions=True)
 				frappe.db.commit()
 				print(f"Division {row[1]} created successfully.")
 
@@ -125,30 +127,31 @@ def department_sync():
 	query = """SELECT * from greports.category where level = 1"""
 	rows = client.query(query).result_rows
 	for row in rows:
-		if department_in_db(row[0]):
-			print("update Department", row[1])
-			item_doc = frappe.get_doc("Item Department", {"category_id": row[0]})
-			item_doc.category_name = row[1]
-			item_doc.status = 1 if row[2] == "A" else 0
-			item_doc.parent_id = row[3]
-			item_doc.save(ignore_permissions=True)
-			frappe.db.commit()
-		else:
-			try:
-				print("insert Department", row[1])
-				site = frappe.get_doc({
-					"doctype": "Item Department",
-					"category_id": row[0],
-					"category_name": row[1],
-					"status": 1 if row[2] == "A" else 0,
-					"parent_id": row[3]
-				})
-			except Exception as e:
-				print(f"Error creating Department {row[1]}: {e}")
-			else:
-				site.insert(ignore_permissions=True)
+		if division_in_db(row[3]):
+			if department_in_db(row[0]):
+				print("update Department", row[1])
+				item_doc = frappe.get_doc("Item Department", {"category_id": row[0]})
+				item_doc.category_name = row[1]
+				item_doc.status = 1 if row[2] == "A" else 0
+				item_doc.parent_id = row[3]
+				item_doc.save(ignore_permissions=True)
 				frappe.db.commit()
-				print(f"Department {row[1]} created successfully.")
+			else:
+				try:
+					print("insert Department", row[1])
+					department = frappe.get_doc({
+						"doctype": "Item Department",
+						"category_id": row[0],
+						"category_name": row[1],
+						"status": 1 if row[2] == "A" else 0,
+						"parent_id": row[3]
+					})
+				except Exception as e:
+					print(f"Error creating Department {row[1]}: {e}")
+				else:
+					department.insert(ignore_permissions=True)
+					frappe.db.commit()
+					print(f"Department {row[1]} created successfully.")
 
 #BARTER SECTION SYNC
 def section_sync():
@@ -156,30 +159,31 @@ def section_sync():
 	query = """SELECT * from greports.category where level = 2"""
 	rows = client.query(query).result_rows
 	for row in rows:
-		if section_in_db(row[0]):
-			print("update Section", row[1])
-			item_doc = frappe.get_doc("Item Section", {"category_id": row[0]})
-			item_doc.category_name = row[1]
-			item_doc.status = 1 if row[2] == "A" else 0
-			item_doc.parent_id = row[3]
-			item_doc.save(ignore_permissions=True)
-			frappe.db.commit()
-		else:
-			try:
-				print("insert Section")
-				site = frappe.get_doc({
-					"doctype": "Item Section",
-					"category_id": row[0],
-					"category_name": row[1],
-					"status": 1 if row[2] == "A" else 0,
-					"parent_id": row[3]
-				})
-			except Exception as e:
-				print(f"Error creating Section {row[1]}: {e}")
-			else:
-				site.insert(ignore_permissions=True)
+		if department_in_db(row[3]):
+			if section_in_db(row[0]):
+				print("update Section", row[1])
+				item_doc = frappe.get_doc("Item Section", {"category_id": row[0]})
+				item_doc.category_name = row[1]
+				item_doc.status = 1 if row[2] == "A" else 0
+				item_doc.parent_id = row[3]
+				item_doc.save(ignore_permissions=True)
 				frappe.db.commit()
-				print(f"Section {row[1]} created successfully.")
+			else:
+				try:
+					print("insert Section")
+					section = frappe.get_doc({
+						"doctype": "Item Section",
+						"category_id": row[0],
+						"category_name": row[1],
+						"status": 1 if row[2] == "A" else 0,
+						"parent_id": row[3]
+					})
+				except Exception as e:
+					print(f"Error creating Section {row[1]}: {e}")
+				else:
+					section.insert(ignore_permissions=True)
+					frappe.db.commit()
+					print(f"Section {row[1]} created successfully.")
 
 #BARTER CATEGORY SYNC
 def category_sync():
@@ -187,31 +191,37 @@ def category_sync():
 	query = """SELECT * from greports.category where level = 3"""
 	rows = client.query(query).result_rows
 	for row in rows:
-		if category_in_db(row[0]):
-			print("update Category", row[1])
-			item_doc = frappe.get_doc("Item Category", {"category_id": row[0]})
-			item_doc.category_name = row[1]
-			item_doc.status = 1 if row[2] == "A" else 0
-			item_doc.parent_id = row[3]
-			item_doc.save(ignore_permissions=True)
-			frappe.db.commit()
-		else:
-			try:
-				print("insert Category", row[1])
-				site = frappe.get_doc({
-					"doctype": "Item Category",
-					"category_id": row[0],
-					"category_name": row[1],
-					"status": 1 if row[2] == "A" else 0,
-					"parent_id": row[3]
-				})
-			except Exception as e:
-				print(f"Error creating Category {row[0]}: {e}")
-				continue
+		if section_in_db(row[3]):
+			if category_in_db(row[0]):
+				try:
+					print("update Category", row[1])
+					item_doc = frappe.get_doc("Item Category", {"category_id": row[0]})
+					item_doc.category_name = row[1]
+					item_doc.status = 1 if row[2] == "A" else 0
+					item_doc.parent_id = row[3]
+					item_doc.save(ignore_permissions=True)
+					frappe.db.commit()
+				except Exception as e:
+					print(f"Error updating Category {row[0]}: {e}")
+				else:
+					continue
 			else:
-				site.insert(ignore_permissions=True)
-				frappe.db.commit()
-				print(f"Category {row[1]} created successfully.")
+				try:
+					print("insert Category", row[1])
+					category = frappe.get_doc({
+						"doctype": "Item Category",
+						"category_id": row[0],
+						"category_name": row[1],
+						"status": 1 if row[2] == "A" else 0,
+						"parent_id": row[3]
+					})
+				except Exception as e:
+					print(f"Error creating Category {row[0]}: {e}")
+					continue
+				else:
+					category.insert(ignore_permissions=True)
+					frappe.db.commit()
+					print(f"Category {row[1]} created successfully.")
 
 def supplier_in_db(sup_id):
 	sup = frappe.db.get_value("Supplier", {"sup_id": sup_id}, "name")

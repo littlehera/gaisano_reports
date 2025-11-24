@@ -8,7 +8,9 @@
  "field_order": [
   "category_id",
   "category_name",
-  "status"
+  "status",
+  "business_unit",
+  "business_unit2"
  ],
  "fields": [
   {
@@ -31,12 +33,24 @@
    "fieldname": "status",
    "fieldtype": "Check",
    "label": "Active?"
+  },
+  {
+   "fieldname": "business_unit",
+   "fieldtype": "Link",
+   "label": "Main Business Unit",
+   "options": "Business Unit"
+  },
+  {
+   "fieldname": "business_unit2",
+   "fieldtype": "Link",
+   "label": "Secondary Business Unit",
+   "options": "Business Unit"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-10-13 16:51:53.196778",
+ "modified": "2025-11-24 11:32:53.089687",
  "modified_by": "Administrator",
  "module": "Gaisano Reports",
  "name": "Item Division",
