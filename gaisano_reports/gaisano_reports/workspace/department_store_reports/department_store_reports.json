@@ -1,6 +1,6 @@
 {
  "charts": [],
- "content": "[{\"id\":\"vC48NRe9hI\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Department Store Reports</span>\",\"col\":12}},{\"id\":\"Blj44nK5_L\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Offtake Report\",\"col\":3}},{\"id\":\"zghLL-F4FT\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Service Level Report\",\"col\":3}}]",
+ "content": "[{\"id\":\"vC48NRe9hI\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Department Store Reports</span>\",\"col\":12}},{\"id\":\"mJHeHFN0Jd\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Department Sales Report\",\"col\":3}},{\"id\":\"Blj44nK5_L\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Offtake Report\",\"col\":3}},{\"id\":\"zghLL-F4FT\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Service Level Report\",\"col\":3}}]",
  "creation": "2025-05-02 12:58:01.689893",
  "custom_blocks": [],
  "docstatus": 0,
@@ -13,7 +13,7 @@
  "is_hidden": 0,
  "label": "Department Store Reports",
  "links": [],
- "modified": "2025-10-01 15:23:31.478696",
+ "modified": "2025-11-28 14:24:35.328777",
  "modified_by": "Administrator",
  "module": "Gaisano Reports",
  "name": "Department Store Reports",
@@ -29,6 +29,14 @@
  ],
  "sequence_id": 24.0,
  "shortcuts": [
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Department Sales Report",
+   "link_to": "Department Sales Report",
+   "report_ref_doctype": "Item Department",
+   "type": "Report"
+  },
   {
    "color": "Grey",
    "doc_view": "List",
