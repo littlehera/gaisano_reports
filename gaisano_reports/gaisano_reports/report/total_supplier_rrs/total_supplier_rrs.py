@@ -67,9 +67,9 @@ def get_rr_data(from_date, to_date, branch, business_unit, supplier):
 	
 	conditions.append("date >= makeDate(%d, %d, %d) and date < makeDate(%d, %d, %d)"%(from_date.year, from_date.month, from_date.day, to_date.year, to_date.month, to_date.day))
 	conditions.append("status = 'P'")
-	if branch != "":
-		site_codes = get_site_codes(branch, business_unit)
-		conditions.append("site_code in %s"%(site_codes))
+	
+	site_codes = get_site_codes(branch, business_unit)
+	conditions.append("site_code in %s"%(site_codes))
 
 	if supplier != "":
 		conditions.append("supplier_id = %s"%(supplier))
@@ -102,7 +102,7 @@ def get_rr_data(from_date, to_date, branch, business_unit, supplier):
 			'sub_total': sub_total,
 			'net_total': net_total
 		})
-
+	data = sorted(data, key=lambda d: d['branch'])
 	return data
 
 def get_branch_totals(rows, report_type, month_year=None):
@@ -157,7 +157,7 @@ def get_rr_monthly(data, from_date, to_date, branch):
 	date_limit = to_date
 
 	if branch == "":
-		branches = frappe.db.sql("""select DISTINCT branch_mapping from `tabSite`""")
+		branches = frappe.db.sql("""select DISTINCT branch_mapping from `tabSite` order by branch_mapping asc""")
 		for b in branches:
 			if b[0] is None or b[0] == "":
 				continue
@@ -189,7 +189,7 @@ def get_month_year_data(data, branch, month_year):
 def get_site_codes(branch=None, business_unit=None):
 	site_codes = "("
 	rows = ""
-	if branch is None:
+	if branch == "":
 		rows = frappe.db.sql("""select site_code from `tabSite` where business_unit = %s""", (business_unit))
 	else:
 		rows = frappe.db.sql("""select site_code from `tabSite` where branch_mapping = %s and business_unit = %s""", (branch, business_unit))
