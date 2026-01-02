@@ -16,7 +16,7 @@
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-06-04 12:45:39.135794",
+ "modified": "2025-12-26 15:33:39.605904",
  "modified_by": "Administrator",
  "module": "Gaisano Reports",
  "name": "Peso Value",
@@ -42,7 +42,7 @@
    "print": 1,
    "read": 1,
    "report": 1,
-   "role": "Sales Manager",
+   "role": "Executive",
    "share": 1,
    "write": 1
   }
