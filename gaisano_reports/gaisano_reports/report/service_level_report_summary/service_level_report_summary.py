@@ -1,6 +1,10 @@
 # Copyright (c) 2025, Gaisano IT and contributors
 # For license information, please see license.txt
 
+# Note: To make prepared reports, import the following: from frappe.core.doctype.prepared_report.prepared_report import make_prepared_report
+# Note: To make prepare reports, call the following function: make_prepared_report(report_name, filters)
+# Note: Filters format for this report is : {"from_date":"2025-12-01","to_date":"2025-12-31","branch":"CDO Main","business_unit":"GROCERY"}
+
 import frappe, datetime
 from gaisano_reports.dbutils import get_clickhouse_client
 
@@ -15,8 +19,9 @@ def execute(filters=None):
 	service_level = filters.get("service_level") if filters.get("service_level")  is not None else 0
 
 	data = get_data(from_date, to_date, branch, business_unit, service_level)
+	data = sorted(data, key=lambda d: d['sl_peso'], reverse=True)
 	columns = [
-	{"label": "Supplier ID", "fieldname": "supplier", "fieldtype": "Link", "options": "Supplier", "width": 180},
+	#{"label": "Supplier ID", "fieldname": "supplier", "fieldtype": "Link", "options": "Supplier", "width": 80},
 	{"label": "Supplier Name", "fieldname": "supplier_name", "fieldtype": "Data", "width": 180},
 	{"label": "PO qty", "fieldname": "po_qty", "fieldtype": "Float", "Precision":2, "width": 180},
 	{"label": "PO Peso Value", "fieldname": "po_peso", "fieldtype": "Float", "Precision":2, "width": 180},
