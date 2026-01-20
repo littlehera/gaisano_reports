@@ -48,34 +48,31 @@ def get_data(from_date, to_date, branch, business_unit, supplier):
 	conditions = []
 
 	client = get_clickhouse_client()
-	
-	
-	conditions.append("date >= makeDate(%d, %d, %d) and date < makeDate(%d, %d, %d)"%(from_date.year, from_date.month, from_date.day, to_date.year, to_date.month, to_date.day))
+
+	rr_query = """LEFT OUTER JOIN (select po_number, sum(total_qty) as rr_qty, sum(total_amount) as rr_peso from greports.rr_sl group by po_number) as RR on PO.po_number = RR.po_number"""
+	conditions.append("PO.date >= makeDate(%d, %d, %d) and PO.date < makeDate(%d, %d, %d)"%(from_date.year, from_date.month, from_date.day, to_date.year, to_date.month, to_date.day))
 
 	if branch != "":
 		site_codes = get_site_codes(branch, business_unit)
-		conditions.append("site_code in %s"%(site_codes))
-
+		conditions.append("PO.site_code in %s"%(site_codes))
 	if supplier != "":
-		conditions.append("supplier_id = %s"%("'"+supplier+"'"))
+		conditions.append("PO.supplier_id = %s"%("'"+supplier+"'"))
 
 	where_clause = " AND ".join(conditions)
 	if where_clause != "":
 		where_clause = "WHERE " + where_clause
 
-	query = """SELECT * from greports.po_sl %s"""% (where_clause)
-
+	query = """SELECT PO.*, RR.rr_qty, RR.rr_peso from greports.po_sl PO %s %s"""% (rr_query,where_clause)
 
 	rows = client.query(query).result_rows
 
 	for row in rows:
-		rr_data = get_rr_data(row[0])
 		raw_data.append({
 			"supplier": row[1],
 			"po_qty": row[4],
 			"po_peso": row[5],
-			"rr_qty": rr_data.get("rr_qty", 0),
-			"rr_peso": rr_data.get("rr_peso", 0)
+			"rr_qty": row[6] if row[6] is not None else 0,
+			"rr_peso": row[7] if row[7] is not None else 0
 		})
 	
 	for row in raw_data:
@@ -122,13 +119,13 @@ def get_site_codes(branch, business_unit):
 	site_codes+=")"
 	return site_codes
 
-def get_rr_data(po_number):
-	rrs = {"rr_qty": 0, "rr_peso": 0}
-	query = """select sum(total_qty) as rr_qty, sum(total_amount) as rr_peso from greports.rr_sl where po_number = %s 
-					 group by po_number"""%("'"+po_number+"'")
-	client = get_clickhouse_client()
-	rows = client.query(query).result_rows
-	for row in rows:
-		rrs['rr_qty']=row[0]
-		rrs['rr_peso']=row[1]
-	return rrs
+# def get_rr_data(po_number):
+# 	rrs = {"rr_qty": 0, "rr_peso": 0}
+# 	query = """select sum(total_qty) as rr_qty, sum(total_amount) as rr_peso from greports.rr_sl where po_number = %s 
+# 					 group by po_number"""%("'"+po_number+"'")
+# 	client = get_clickhouse_client()
+# 	rows = client.query(query).result_rows
+# 	for row in rows:
+# 		rrs['rr_qty']=row[0]
+# 		rrs['rr_peso']=row[1]
+# 	return rrs
