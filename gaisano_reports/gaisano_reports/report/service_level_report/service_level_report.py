@@ -29,7 +29,7 @@ def execute(filters=None):
 	else:
 		data = get_monthly_data(from_date, to_date, branch, business_unit, supplier)
 		columns = [
-		{"label": "Supplier", "fieldname": "supplier", "fieldtype": "Data", "width": 180},
+		{"label": "Month Year", "fieldname": "supplier", "fieldtype": "Data", "width": 180},
 		{"label": "PO qty", "fieldname": "po_qty", "fieldtype": "Float", "Precision":2, "width": 180},
 		{"label": "PO Peso Value", "fieldname": "po_peso", "fieldtype": "Float", "Precision":2, "width": 180},
 		{"label": "RR qty", "fieldname": "rr_qty", "fieldtype": "Float", "Precision":2, "width": 180},
