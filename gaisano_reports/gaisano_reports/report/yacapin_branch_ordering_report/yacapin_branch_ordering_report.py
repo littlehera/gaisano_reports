@@ -16,6 +16,7 @@ def execute(filters=None):
 	business_unit = filters.get("business_unit")
 	supplier = filters.get("supplier") if filters.get("supplier")  is not None else ""
 	multiplier = filters.get("multiplier") if filters.get("multiplier")  is not None else 1
+	report_type = filters.get("report_type")
 
 	print(supplier)
 
@@ -38,7 +39,7 @@ def execute(filters=None):
 	
 	rows = get_raw_data(from_date, to_date, branch, supplier, business_unit)
 	for i,row in enumerate(rows):
-		print(i," | ",len(rows)," | ")
+		# print(i," | ",len(rows)," | ")
 		
 		item_sales = row[5]
 		daily_offtake = item_sales/days
@@ -47,40 +48,41 @@ def execute(filters=None):
 		order_qty = int(daily_offtake * multiplier - item_inv)
 		
 		if order_qty == 1:
-			data.append({
-				'barcode': row[1],
-				'case_barcode': "",
-				'item_name': row[2],
-				'supplier_id': row[4],
-				'supplier_name': get_supplier_name(row[4]),
-				'qty_sold': item_sales,
-				'offtake': daily_offtake,
-				'cisl': daily_offtake*multiplier,
-				'cisl30': daily_offtake*30,
-				'inventory': item_inv,
-				'order_qty': order_qty
-				#'last_delivery': last_delivery
-			})
+			if report_type == "All Items" or (report_type == "With Order Qty Only" and order_qty > 0):
+				data.append({
+					'barcode': row[1],
+					'case_barcode': row[1],
+					'item_name': row[2],
+					'supplier_id': row[4],
+					'supplier_name': get_supplier_name(row[4]),
+					'qty_sold': item_sales,
+					'offtake': daily_offtake,
+					'cisl': daily_offtake*multiplier,
+					'cisl30': daily_offtake*30,
+					'inventory': item_inv,
+					'order_qty': order_qty
+					#'last_delivery': last_delivery
+				})
 		else:
 			case_offtake = item_sales/packing
 			ave_offtake = case_offtake/days
 			case_inv = item_inv/packing if item_inv is not None else 0
 			order_qty = int(ave_offtake * multiplier - case_inv)
-			data.append({
-				'barcode': row[1],
-				'case_barcode': row[7],
-				'item_name': row[2],
-				'supplier_id': row[4],
-				'supplier_name': get_supplier_name(row[4]),
-				'qty_sold': case_offtake,
-				'offtake': ave_offtake,
-				'cisl': ave_offtake*multiplier,
-				'cisl30': ave_offtake*30,
-				'inventory': case_inv,
-				'order_qty': order_qty
-				#'last_delivery': last_delivery
-			})
-
+			if report_type == "All Items" or (report_type == "With Order Qty Only" and order_qty > 0):
+				data.append({
+					'barcode': row[1],
+					'case_barcode': row[7],
+					'item_name': row[2],
+					'supplier_id': row[4],
+					'supplier_name': get_supplier_name(row[4]),
+					'qty_sold': case_offtake,
+					'offtake': ave_offtake,
+					'cisl': ave_offtake*multiplier,
+					'cisl30': ave_offtake*30,
+					'inventory': case_inv,
+					'order_qty': order_qty
+					#'last_delivery': last_delivery
+				})
 	return columns, data
 
 def get_raw_data(from_date, to_date, branch, supplier, business_unit):

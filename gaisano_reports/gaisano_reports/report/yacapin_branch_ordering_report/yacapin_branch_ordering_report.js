@@ -4,6 +4,13 @@
 frappe.query_reports["Yacapin Branch Ordering Report"] = {
 	"filters": [
 		{
+		"fieldname": "report_type",
+		"fieldtype": "Select",
+		"label": "Report Type",
+		"options": ["All Items","With Order Qty Only"],
+		"reqd": 1
+		},
+		{
 		"fieldname": "from_date",
 		"fieldtype": "Date",
 		"label": "From Date",
