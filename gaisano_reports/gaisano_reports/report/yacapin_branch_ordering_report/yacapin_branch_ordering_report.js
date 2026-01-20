@@ -24,9 +24,18 @@ frappe.query_reports["Yacapin Branch Ordering Report"] = {
 		},
 		{
 		"fieldname": "supplier",
-		"fieldtype": "Link",
+		"fieldtype": "MultiSelectList",
 		"label": "Supplier",
 		"options": "Supplier",
+		"width": 200,
+		"get_data": function (txt) {
+				return frappe.db.get_link_options("Supplier", txt);
+			},
+			get_query: () => {
+				return {
+					filters: {}
+				};
+			},
 		"reqd": 0
 		},
 		{
@@ -48,7 +57,7 @@ frappe.query_reports["Yacapin Branch Ordering Report"] = {
 		value = default_formatter(value, row, column, data);
 		console.log(value, row, column, data)
         if(!(typeof data["inventory"]=="undefined"))
-            if (data["inventory"]==0){
+            if (data["inventory"]<=0){
 				if(column.id=='inventory')
                 	value = '<div style="background: #e69d59ff; margin:0px; padding:0px;">'+value+'</div>'
         }
