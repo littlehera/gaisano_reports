@@ -11,12 +11,12 @@ def execute(filters=None):
 	report_type = filters.get('report_type')
 	bu = filters.get('business_unit')
 	to_date = datetime.datetime.strptime(filters.get('to_date'),"%Y-%m-%d")+datetime.timedelta(days=1)
-	month_start = datetime.datetime(to_date.year, to_date.month, 1)
-	year_start = datetime.datetime(to_date.year, 1, 1)
+	month_start = datetime.datetime(to_date.year, to_date.month, 1) if (to_date.month >1 or to_date.day > 1) else datetime.datetime(to_date.year -1, 12, 1)
+	year_start = datetime.datetime(to_date.year, 1, 1) if (to_date.month >1 or to_date.day > 1) else datetime.datetime(to_date.year -1, 1, 1)
 
-	ly_to_date = datetime.datetime(to_date.year -1, to_date.month, to_date.day)
-	ly_month_start = datetime.datetime(to_date.year-1, to_date.month, 1)
-	ly_year_start = datetime.datetime(to_date.year -1, 1, 1)
+	ly_to_date = datetime.datetime(to_date.year -1, to_date.month, to_date.day) if (to_date.month >1 or to_date.day > 1) else datetime.datetime(to_date.year -2, to_date.month, to_date.day)
+	ly_month_start = datetime.datetime(to_date.year-1, to_date.month, 1) if (to_date.month >1 or to_date.day > 1) else datetime.datetime(to_date.year -2, 12, 1)
+	ly_year_start = datetime.datetime(to_date.year -1, 1, 1) if (to_date.month >1 or to_date.day > 1) else datetime.datetime(to_date.year -2, 1, 1)
 
 	branch = filters.get("branch")
 	division = filters.get("division")
