@@ -87,8 +87,7 @@ def get_data_total(from_date, to_date, branch, business_unit):
 			"branch": get_branch(row[0]),
 			"gross_sales": row[1],
 			"transactions": row[2],
-			"current_basket_size": row[3],
-			"previous_basket_size": row[4]
+			"basket_size": row[3]
 		})
 
 	return data
