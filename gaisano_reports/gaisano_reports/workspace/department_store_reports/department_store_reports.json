@@ -1,6 +1,6 @@
 {
  "charts": [],
- "content": "[{\"id\":\"vC48NRe9hI\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Department Store Reports</span>\",\"col\":12}},{\"id\":\"mJHeHFN0Jd\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Department Sales Report\",\"col\":3}},{\"id\":\"Blj44nK5_L\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Offtake Report\",\"col\":3}},{\"id\":\"zghLL-F4FT\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Service Level Report\",\"col\":3}}]",
+ "content": "[{\"id\":\"vC48NRe9hI\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Department Store Reports</span>\",\"col\":12}},{\"id\":\"pD4c96Q_e_\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Basket Size Analytics\",\"col\":3}},{\"id\":\"mJHeHFN0Jd\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Department Sales Report\",\"col\":3}},{\"id\":\"Blj44nK5_L\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Offtake Report\",\"col\":3}},{\"id\":\"zghLL-F4FT\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Service Level Report\",\"col\":3}}]",
  "creation": "2025-05-02 12:58:01.689893",
  "custom_blocks": [],
  "docstatus": 0,
@@ -13,7 +13,7 @@
  "is_hidden": 0,
  "label": "Department Store Reports",
  "links": [],
- "modified": "2025-11-28 14:24:35.328777",
+ "modified": "2026-01-26 13:17:54.502449",
  "modified_by": "Administrator",
  "module": "Gaisano Reports",
  "name": "Department Store Reports",
@@ -35,6 +35,14 @@
    "label": "Department Sales Report",
    "link_to": "Department Sales Report",
    "report_ref_doctype": "Item Department",
+   "type": "Report"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Basket Size Analytics",
+   "link_to": "Basket Size Analytics",
+   "report_ref_doctype": "Peso Value",
    "type": "Report"
   },
   {

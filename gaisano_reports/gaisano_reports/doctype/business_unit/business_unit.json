@@ -20,7 +20,7 @@
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-09-26 09:56:06.926530",
+ "modified": "2026-01-26 13:32:21.949630",
  "modified_by": "Administrator",
  "module": "Gaisano Reports",
  "name": "Business Unit",
@@ -64,6 +64,15 @@
    "read": 1,
    "report": 1,
    "role": "Executive",
+   "share": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Warehouse In-Charge",
    "share": 1
   }
  ],

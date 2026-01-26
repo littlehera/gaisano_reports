@@ -46,6 +46,7 @@ def execute(filters=None):
 		item_inv = row[6]
 		packing = row[8] if (row[8] is not None and row[8]!=0) else 1
 		order_qty = int(daily_offtake * multiplier - item_inv)
+		order_qty =  order_qty if order_qty >0 else 0
 		
 		if packing == 1:
 			if report_type == "All Items" or (report_type == "With Order Qty Only" and order_qty > 0):
@@ -68,6 +69,7 @@ def execute(filters=None):
 			ave_offtake = case_offtake/days
 			case_inv = item_inv/packing if item_inv is not None else 0
 			order_qty = int(ave_offtake * multiplier - case_inv)
+			order_qty =  order_qty if order_qty >0 else 0
 			if report_type == "All Items" or (report_type == "With Order Qty Only" and order_qty > 0):
 				data.append({
 					'barcode': row[1],

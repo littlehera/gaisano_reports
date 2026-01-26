@@ -77,7 +77,7 @@
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-09-25 14:44:36.446264",
+ "modified": "2026-01-26 13:33:01.821072",
  "modified_by": "Administrator",
  "module": "Gaisano Reports",
  "name": "Supplier",
@@ -121,6 +121,15 @@
    "read": 1,
    "report": 1,
    "role": "Executive",
+   "share": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Warehouse In-Charge",
    "share": 1
   }
  ],

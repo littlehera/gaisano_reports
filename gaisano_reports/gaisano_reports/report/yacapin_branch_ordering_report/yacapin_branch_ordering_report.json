@@ -10,7 +10,7 @@
  "idx": 0,
  "is_standard": "Yes",
  "letterhead": null,
- "modified": "2026-01-15 18:07:08.726711",
+ "modified": "2026-01-26 13:23:48.138532",
  "modified_by": "Administrator",
  "module": "Gaisano Reports",
  "name": "Yacapin Branch Ordering Report",
@@ -32,6 +32,9 @@
   },
   {
    "role": "Executive"
+  },
+  {
+   "role": "Warehouse In-Charge"
   }
  ],
  "timeout": 0
