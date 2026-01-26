@@ -106,6 +106,7 @@ def get_ytd_data(bu, division, ly_ytd_query, ytd_query):
 	ytd_orsob = get_total_sales(ytd,False)
 	ytd_concsob = get_total_sales(ytd, True)
 	ytd_total = get_total_sales(ytd, None)
+	ytd_orly, ytd_orty = 0,0
 
 	for category in category_list:
 		division_department = category['division_department']
