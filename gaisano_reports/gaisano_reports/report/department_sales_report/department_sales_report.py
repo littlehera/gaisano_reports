@@ -14,14 +14,17 @@ def execute(filters=None):
 	month_start = datetime.datetime(to_date.year, to_date.month, 1) if (to_date.month >1 or to_date.day > 1) else datetime.datetime(to_date.year -1, 12, 1)
 	year_start = datetime.datetime(to_date.year, 1, 1) if (to_date.month >1 or to_date.day > 1) else datetime.datetime(to_date.year -1, 1, 1)
 
-	ly_to_date = datetime.datetime(to_date.year -1, to_date.month, to_date.day) if (to_date.month >1 or to_date.day > 1) else datetime.datetime(to_date.year -2, to_date.month, to_date.day)
+	ly_to_date = datetime.datetime(to_date.year -1, to_date.month, to_date.day)
 	ly_month_start = datetime.datetime(to_date.year-1, to_date.month, 1) if (to_date.month >1 or to_date.day > 1) else datetime.datetime(to_date.year -2, 12, 1)
 	ly_year_start = datetime.datetime(to_date.year -1, 1, 1) if (to_date.month >1 or to_date.day > 1) else datetime.datetime(to_date.year -2, 1, 1)
+
+	print(month_start, year_start)
+	print(ly_to_date, ly_month_start, ly_year_start)
 
 	branch = filters.get("branch")
 	division = filters.get("division")
 
-	branch = get_branch_list(branch)
+	branch = get_branch_list(branch, bu)
 
 	mtd_query = get_query(month_start, to_date, branch, division)
 	ly_mtd_query = get_query(ly_month_start,ly_to_date, branch, division)
@@ -182,8 +185,12 @@ def get_columns(report_type):
 
 	return columns
 
-def get_branch_list(branch):
-	branches = frappe.db.sql("""SELECT ref_code from `tabSite` where branch_mapping = %s and ref_code like %s""", (branch, '%DSSA%'))
+def get_branch_list(branch, bu):
+
+	if bu == 'GROCERY':
+		return branch
+
+	branches = frappe.db.sql("""SELECT ref_code from `tabSite` where site_type_code = 'SEA' and branch_mapping = %s and business_unit = 'DEPTSTORE'""", (branch))
 	return branches[0][0] if branches else None
 
 def get_category_name(category_type, id):
@@ -194,7 +201,7 @@ def get_query(from_date, to_date, branch, division):
 	where_clause = ""	
 	group_by_clause = " group by prod.division_id, prod.department_id, prod.is_concession order by prod.division_id asc, prod.department_id asc;"
 
-	conditions.append("pos.trans_date between makeDate(%d, %d, %d) and makeDate(%d, %d, %d)"%(from_date.year, from_date.month, from_date.day, to_date.year, to_date.month, to_date.day))
+	conditions.append("pos.trans_date >= makeDate(%d, %d, %d) and trans_date < makeDate(%d, %d, %d)"%(from_date.year, from_date.month, from_date.day, to_date.year, to_date.month, to_date.day))
 
 	if branch != "" and branch is not None:
 		conditions.append("pos.branch = '%s'"%(branch))
