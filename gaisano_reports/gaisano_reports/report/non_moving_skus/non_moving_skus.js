@@ -1,0 +1,63 @@
+// Copyright (c) 2026, Gaisano IT and contributors
+// For license information, please see license.txt
+
+frappe.query_reports["Non-Moving SKUs"] = {
+	"filters": [
+		{
+		"fieldname": "past_90_days",
+		"fieldtype": "Check",
+		"label": "Past 90 Days?",
+		"on_change": function(query_report){
+			var report_type = frappe.query_report.get_filter_value('past_90_days');
+			if (report_type == 1){
+				frappe.query_report.set_filter_value('to_date',frappe.datetime.get_today());
+				var from_date = frappe.datetime.add_days(frappe.datetime.get_today(),-90);
+				frappe.query_report.set_filter_value('from_date',from_date);
+			}
+			frappe.query_report.refresh()
+			}
+		},
+		{
+		"fieldname": "from_date",
+		"fieldtype": "Date",
+		"label": "From Date",
+		"reqd": 1
+		},
+		{
+		"fieldname": "to_date",
+		"fieldtype": "Date",
+		"label": "To Date",
+		"reqd": 1,
+		"on_change": function(query_report){
+			var to_date = frappe.query_report.get_filter_value('to_date');
+			var report_type = frappe.query_report.get_filter_value('past_90_days');
+			if (report_type == 1){
+				var from_date = frappe.datetime.add_days(to_date,-90);
+				frappe.query_report.set_filter_value('from_date',from_date);
+				frappe.query_report.refresh()
+			}
+			}
+		},
+		{
+		"fieldname": "branch",
+		"fieldtype": "Link",
+		"label": "Branch",
+		"options": "Branch",
+		"reqd": 1
+		},
+		{
+		"fieldname": "business_unit",
+		"fieldtype": "Link",
+		"label": "Business Unit",
+		"options": "Business Unit",
+		"reqd": 1
+		},
+		{
+		"fieldname": "supplier",
+		"fieldtype": "Link",
+		"label": "Supplier",
+		"options": "Supplier",
+		"reqd": 0
+		}
+	]
+};

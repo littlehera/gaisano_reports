@@ -1,0 +1,175 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:{year}-{division_name}/{dept_name}",
+ "creation": "2026-01-29 11:08:02.933261",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "enable_editing",
+  "department_budget_details_section",
+  "division",
+  "department",
+  "division_name",
+  "dept_name",
+  "column_break_rlmz",
+  "year",
+  "total_budget",
+  "breakdown_section",
+  "calculate_breakdown",
+  "items",
+  "section_break_juxf",
+  "column_break_egnm",
+  "column_break_lyxj",
+  "column_break_qgxg",
+  "total_from_breakdown"
+ ],
+ "fields": [
+  {
+   "default": "0",
+   "fieldname": "enable_editing",
+   "fieldtype": "Check",
+   "label": "Enable Editing?"
+  },
+  {
+   "fieldname": "department_budget_details_section",
+   "fieldtype": "Section Break",
+   "label": "Department Budget Details",
+   "read_only_depends_on": "eval:(doc.enable_editing == 0)"
+  },
+  {
+   "fieldname": "division",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Division",
+   "options": "Item Division",
+   "reqd": 1
+  },
+  {
+   "fieldname": "department",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Department",
+   "options": "Item Department",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_rlmz",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "year",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Year",
+   "non_negative": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "total_budget",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Total Budget",
+   "non_negative": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "breakdown_section",
+   "fieldtype": "Section Break",
+   "label": "Breakdown",
+   "read_only_depends_on": "eval:(doc.enable_editing == 0)"
+  },
+  {
+   "fieldname": "calculate_breakdown",
+   "fieldtype": "Button",
+   "label": "Calculate Breakdown"
+  },
+  {
+   "fieldname": "items",
+   "fieldtype": "Table",
+   "options": "Budget Item",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_juxf",
+   "fieldtype": "Section Break",
+   "read_only_depends_on": "eval:(doc.enable_editing == 0)"
+  },
+  {
+   "fieldname": "column_break_egnm",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_lyxj",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_qgxg",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "total_from_breakdown",
+   "fieldtype": "Currency",
+   "label": "Total Budget from Breakdown",
+   "non_negative": 1,
+   "precision": "2",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "division.category_name",
+   "fieldname": "division_name",
+   "fieldtype": "Data",
+   "label": "Division Name",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "fetch_from": "department.category_name",
+   "fieldname": "dept_name",
+   "fieldtype": "Data",
+   "label": "Department Name",
+   "read_only": 1,
+   "reqd": 1
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-01-29 13:12:52.519871",
+ "modified_by": "Administrator",
+ "module": "Gaisano Reports",
+ "name": "Department Budget",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Merchandise Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

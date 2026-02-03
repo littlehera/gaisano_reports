@@ -1,6 +1,6 @@
 {
  "charts": [],
- "content": "[{\"id\":\"vC48NRe9hI\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Department Store Reports</span>\",\"col\":12}},{\"id\":\"pD4c96Q_e_\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Basket Size Analytics\",\"col\":3}},{\"id\":\"mJHeHFN0Jd\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Department Sales Report\",\"col\":3}},{\"id\":\"Blj44nK5_L\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Offtake Report\",\"col\":3}},{\"id\":\"zghLL-F4FT\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Service Level Report\",\"col\":3}}]",
+ "content": "[{\"id\":\"vC48NRe9hI\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Department Store Reports</span>\",\"col\":12}},{\"id\":\"pD4c96Q_e_\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Basket Size Analytics\",\"col\":3}},{\"id\":\"mJHeHFN0Jd\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Department Sales Report\",\"col\":3}},{\"id\":\"Blj44nK5_L\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Offtake Report\",\"col\":3}},{\"id\":\"zghLL-F4FT\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Service Level Report\",\"col\":3}},{\"id\":\"qPa4ccmfJj\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Setup</b></span>\",\"col\":12}},{\"id\":\"u_Iars47LR\",\"type\":\"card\",\"data\":{\"card_name\":\"Budgetting\",\"col\":4}}]",
  "creation": "2025-05-02 12:58:01.689893",
  "custom_blocks": [],
  "docstatus": 0,
@@ -12,8 +12,28 @@
  "indicator_color": "",
  "is_hidden": 0,
  "label": "Department Store Reports",
- "links": [],
- "modified": "2026-01-26 13:17:54.502449",
+ "links": [
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Budgetting",
+   "link_count": 1,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Department Budget",
+   "link_count": 0,
+   "link_to": "Department Budget",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  }
+ ],
+ "modified": "2026-01-29 13:36:36.677003",
  "modified_by": "Administrator",
  "module": "Gaisano Reports",
  "name": "Department Store Reports",
