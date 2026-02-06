@@ -101,7 +101,7 @@ def get_data_total(from_date, to_date, branch, business_unit, supplier, division
 				group by P1.product_code, pos.barcode,prod.content_qty) ws on p.product_code = ws.product_code"""%(branch_code, from_date.year, from_date.month, from_date.day, to_date.year, to_date.month, to_date.day)
 
 	# PACKING QUERY
-	pck_query = """LEFT OUTER JOIN (select mfg_code, max(content_qty) as content_qty from greports.product group by mfg_code) as pck on p.mfg_code = pck.mfg_code"""
+	pck_query = """LEFT OUTER JOIN (select mfg_code, max(content_qty) as content_qty from greports.product where status not in ('D','I') group by mfg_code) as pck on p.mfg_code = pck.mfg_code"""
 
 	query = """SELECT p.item_name, p.barcode, p.base_unit, pos.total_qty, ws.total_qty, pck.content_qty from greports.product p %s %s %s %s"""%(pos_query, ws_query, pck_query,where_clause)
 
