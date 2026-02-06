@@ -55,8 +55,7 @@ def get_data(from_date, to_date, branch, business_unit, supplier):
 
 	query = """select P.item_name, P.barcode, P.product_type, S.supplier_name, P.status from greports.product P left join greports.supplier S
 	 			on P.supplier_id = S.sup_id %s order by S.supplier_name asc"""% (where_clause)
-
-	print(query)
+	
 	rows = client.query(query).result_rows
 	for row in rows:
 		data.append({

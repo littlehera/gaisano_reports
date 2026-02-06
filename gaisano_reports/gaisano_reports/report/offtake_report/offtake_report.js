@@ -7,7 +7,7 @@ frappe.query_reports["Offtake Report"] = {
 		"fieldname": "report_type",
 		"fieldtype": "Select",
 		"label": "Report Type",
-		"options": ["Total Only", "Past 90 Days", "Months Supply"],
+		"options": ["Total Only", "Past 90 Days", "Monthly Offtake"],
 		"reqd": 1,
 		"on_change": function(query_report){
 			var report_type = frappe.query_report.get_filter_value('report_type');
@@ -38,6 +38,7 @@ frappe.query_reports["Offtake Report"] = {
 				frappe.query_report.set_filter_value('from_date',from_date);
 				frappe.query_report.refresh()
 			}
+			frappe.query_report.refresh()
 			}
 		},
 		{
@@ -52,6 +53,13 @@ frappe.query_reports["Offtake Report"] = {
 		"fieldtype": "Link",
 		"label": "Business Unit",
 		"options": "Business Unit",
+		"reqd": 1
+		},
+		{
+		"fieldname": "division",
+		"fieldtype": "Link",
+		"label": "Item Division",
+		"options": "Item Division",
 		"reqd": 1
 		},
 		{
