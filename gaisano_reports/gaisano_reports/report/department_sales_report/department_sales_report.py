@@ -161,7 +161,10 @@ def get_query_data(ly_from_date, ly_to_date, from_date, to_date, branches, divis
 			"ly_amount_concession": ly_con,
 			"ly_amount_outright": ly_or,
 			"ty_amount_total": ty_con + ty_or,
-			"ly_amount_total": ly_con + ly_or
+			"ly_amount_total": ly_con + ly_or,
+			"growth_concession": ((ty_con - ly_con)/ly_con*100) if ly_con != 0 else 0,
+			"growth_outright": ((ty_or - ly_or)/ly_or*100) if ly_or != 0 else 0,
+			"growth_total": ((ty_con + ty_or - ly_con - ly_or)/ (ly_con + ly_or)*100) if (ly_con + ly_or) != 0 else 0
 		})
 	
 	data.sort(key=lambda x: (x["division"] or "", x["department"] or "", x["section"] or "", x["category"] or ""))
