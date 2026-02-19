@@ -4,17 +4,16 @@
 frappe.query_reports["Department Sales Report"] = {
 	"filters": [
 		{
-		"fieldname": "report_type",
-		"fieldtype": "Select",
-		"label": "Report Type",
-		"options": ['Month to Date', 'Year to Date'],
-		"reqd": 1
-		},
-		{
 		"fieldname": "business_unit",
 		"fieldtype": "Link",
 		"label": "Business Unit",
 		"options": "Business Unit",
+		"reqd": 1
+		},
+		{
+		"fieldname": "from_date",
+		"fieldtype": "Date",
+		"label": "From Date",
 		"reqd": 1
 		},
 		{
@@ -25,10 +24,18 @@ frappe.query_reports["Department Sales Report"] = {
 		},
 		{
 		"fieldname": "branch",
-		"fieldtype": "Link",
+		"fieldtype": "MultiSelectList",
 		"label": "Branch",
 		"options": "Branch",
-		"reqd": 0
+		"get_data": function (txt) {
+				return frappe.db.get_link_options("Branch", txt);
+			},
+			get_query: () => {
+				return {
+					filters: {}
+				};
+			},
+		"reqd": 1
 		},
 		{
 		"fieldname": "division",
@@ -43,7 +50,82 @@ frappe.query_reports["Department Sales Report"] = {
 				}
 			};
 		}
-	}
+		},
+		{
+		"fieldname": "department",
+		"fieldtype": "Link",
+		"label": "Department",
+		"options": "Item Department",
+		"reqd": 0,
+		"get_query": function() {
+			var division = frappe.query_report.get_filter_value('division');
+			if(division){
+				return {
+					filters: {
+						'status': 1,
+						'parent_id': division
+					}
+				};
+			}
+			else{
+				return{
+						filters: {
+						'status': 1
+					}
+				};
+			}
+		}
+		},
+		{
+		"fieldname": "section",
+		"fieldtype": "Link",
+		"label": "Section",
+		"options": "Item Section",
+		"reqd": 0,
+		"get_query": function() {
+			var department = frappe.query_report.get_filter_value('department');
+			if(department){
+				return {
+					filters: {
+						'status': 1,
+						'parent_id': department
+					}
+				};
+			}
+			else{
+				return{
+						filters: {
+						'status': 1
+					}
+				};
+			}
+		}
+		},
+		{
+		"fieldname": "category",
+		"fieldtype": "Link",
+		"label": "Category",
+		"options": "Item Category",
+		"reqd": 0,
+		"get_query": function() {
+			var section = frappe.query_report.get_filter_value('section');
+			if(section){
+				return {
+					filters: {
+						'status': 1,
+						'parent_id': section
+					}
+				};
+			}
+			else{
+				return{
+						filters: {
+						'status': 1
+					}
+				};
+			}
+		}
+		}
 
 	]
 };
