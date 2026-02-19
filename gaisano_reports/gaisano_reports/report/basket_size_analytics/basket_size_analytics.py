@@ -17,8 +17,6 @@ def execute(filters=None):
 	columns = get_columns(report_type, from_date, to_date)
 	if report_type =="Total Only":
 		data = get_data_total(from_date, to_date, branch, business_unit)
-	elif report_type == "Monthly Breakdown":
-		data = get_data_total(from_date, to_date, branch, business_unit)
 	else:
 		data = get_total_growth(from_date, to_date, branch, business_unit)
 
@@ -32,16 +30,6 @@ def get_columns(report_type, from_date, to_date):
 			{"label": "# of Transactions", "fieldname": "transactions", "fieldtype": "Float", "width": 180},
 			{"label": "Basket Size", "fieldname": "basket_size", "fieldtype": "Currency", "width": 180}
 		]
-	# elif report_type == "Monthly Breakdown":
-	# 	date_limit = to_date
-	# 	columns = [{
-	# 		"label": "Branch", "fieldname": "branch", "fieldtype": "Data", "width": 180
-	# 	}]
-	# 	while from_date < date_limit:
-	# 		month_year = datetime.datetime.strftime(from_date, "%b %Y")
-	# 		columns.append({"label": f"{month_year}", "fieldname": f"{month_year}", "fieldtype": "Float", "Precision":2, "width": 150})
-	# 		from_date = datetime.datetime(from_date.year, from_date.month + 1, 1) if from_date.month < 12 else datetime.datetime(from_date.year + 1, 1, 1)
-	# 	columns.append({"label": "Average", "fieldname": "average", "fieldtype": "Float", "Precision":2, "width": 150})
 	else:
 		columns = [
 			{"label": "Branch", "fieldname": "branch", "fieldtype": "Data", "width": 180},
@@ -61,7 +49,12 @@ def get_data_total(from_date, to_date, branch, business_unit):
 
 	client = get_clickhouse_client()
 
+	division_list = get_division_list(business_unit)
+	if division_list != "()":
+		conditions.append("product_code in (select product_code from greports.product where division_id in %s)"%(division_list))
+
 	pos_data_query = """select site_code, sum(sub_total) as gross_sales, count(distinct inventory_doc_id) as transactions, gross_sales/transactions as basket_size from greports.barter_pos_data"""
+	
 	qroup_by_clause = "group by site_code"
 
 	conditions.append("doc_date >= makeDate(%d, %d, %d) and doc_date < makeDate(%d, %d, %d)"%(from_date.year, from_date.month, from_date.day, to_date.year, to_date.month, to_date.day))
@@ -104,6 +97,11 @@ def get_total_growth(from_date, to_date, branch, business_unit):
 	
 
 	client = get_clickhouse_client()
+
+	division_list = get_division_list(business_unit)
+	if division_list != "()":
+		conditions_current.append("product_code in (select product_code from greports.product where division_id in %s)"%(division_list))
+		conditions_previous.append("product_code in (select product_code from greports.product where division_id in %s)"%(division_list))
 
 	main_query = """SELECT S.site_code, C.gross_sales, C.transactions, C.basket_size, P.basket_size from greports.site as S"""
 	data_query = """LEFT JOIN (select site_code, sum(sub_total) as gross_sales, count(distinct inventory_doc_id) as transactions, gross_sales/transactions as basket_size from greports.barter_pos_data"""
@@ -159,9 +157,15 @@ def get_total_growth(from_date, to_date, branch, business_unit):
 def get_site_codes(branch, business_unit):
 	site_codes = "("
 	if branch !="":
-		rows = frappe.db.sql("""select site_code from `tabSite` where branch_mapping = %s and business_unit = %s and site_type_code = 'SEA'""", (branch, business_unit))
+		if business_unit == "GROCERY":
+			rows = frappe.db.sql("""select site_code from `tabSite` where branch_mapping = %s and business_unit = %s and site_type_code = 'SEA'""", (branch, business_unit))
+		else:
+			rows = frappe.db.sql("""select site_code from `tabSite` where branch_mapping = %s and business_unit = 'DEPTSTORE' and site_type_code = 'SEA'""", (branch))
 	else:
-		rows = frappe.db.sql("""select site_code from `tabSite` where business_unit = %s and site_type_code = 'SEA'""", (business_unit))
+		if business_unit == "GROCERY":
+			rows = frappe.db.sql("""select site_code from `tabSite` where business_unit = %s and site_type_code = 'SEA'""", (business_unit))
+		else:
+			rows = frappe.db.sql("""select site_code from `tabSite` where business_unit = 'DEPTSTORE' and site_type_code = 'SEA'""")
 	for i,row in enumerate(rows):
 		site_codes+="'"+row[0]+"'"
 		if i < len(rows) - 1:
@@ -172,3 +176,14 @@ def get_site_codes(branch, business_unit):
 def get_branch(site_code):
 	branch = frappe.db.get_value("Site", {"site_code": site_code}, "branch_mapping")
 	return branch
+
+def get_division_list(business_unit):
+
+	categories = "("
+	rows = frappe.db.sql("""select category_id from `tabItem Division` where business_unit = %s or business_unit2 = %s""", (business_unit,business_unit))
+	for i,row in enumerate(rows):
+		categories+="'"+str(row[0])+"'"
+		if i < len(rows) - 1:
+			categories+=","
+	categories+=")"
+	return categories
