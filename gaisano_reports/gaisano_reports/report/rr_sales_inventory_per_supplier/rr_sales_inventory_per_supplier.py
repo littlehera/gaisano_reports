@@ -64,17 +64,19 @@ def get_data(from_date, to_date, branch, business_unit, supplier, wh_type_code):
 	where_clause = ""
 	conditions = []
 
+	site_code = get_site_code(branch, business_unit, wh_type_code)
+	branch_code = get_branch(branch, business_unit)
+	ref_code = get_ref_code(branch, business_unit, wh_type_code)
+
 	client = get_clickhouse_client()
 
 	conditions.append("p.supplier_id = %s"%supplier)
 	conditions.append("p.product_type !='P' and p.product_type !='A'")
+	conditions.append("p.valid_site like '%s'"%("%"+ref_code+"%"))
 
 	where_clause = " AND ".join(conditions)
 	if where_clause != "":
 		where_clause = "WHERE " + where_clause
-
-	site_code = get_site_code(branch, business_unit, wh_type_code)
-	branch_code = get_branch(branch, business_unit)
 
 	# RR TOTAL QUERY:
 
@@ -84,22 +86,16 @@ def get_data(from_date, to_date, branch, business_unit, supplier, wh_type_code):
 				where C.supplier_id = %s and C.date >=makeDate(%d,%d,%d) and C.date < makeDate(%d,%d,%d) and C.status = 'P' and C.site_code = '%s'
 				group by P.product_code, C.product_code) rr on p.product_code = rr.product_code"""%(supplier, from_date.year, from_date.month, from_date.day, to_date.year, to_date.month, to_date.day, site_code)
 
-	print(rr_query)
-
 	# INVENTORY QUERY
 	inv_query = """LEFT OUTER JOIN (select product_code, sum(quantity) as total_qty from greports.inventory_movement where site_code = '%s' 
 				and doc_date<makeDate(%d,%d,%d)	group by product_code) inv on p.product_code = inv.product_code"""%(site_code, to_date.year, to_date.month, to_date.day)
-	
-	print(inv_query)
 
 	# REGULAR SALES QUERY
-	pos_query = """LEFT OUTER JOIN (select P1.product_code, sum(pos.amount) as total_amount, sum(pos.qty) as total_qty from greports.pos_data pos join 
-				(select mfg_code, barcode from greports.product where product_type = '') prod on pos.barcode = prod.barcode 
+	pos_query = """LEFT OUTER JOIN (select P1.product_code as product_code, sum(pos.amount) as total_amount, sum(pos.qty) as total_qty from greports.pos_data pos join 
+				greports.product prod on pos.barcode = prod.barcode 
 				join (select product_code, mfg_code from greports.product where product_type = '') P1 on P1.mfg_code = prod.mfg_code where branch = '%s' 
 				and trans_date >= makeDate(%d,%d,%d) and trans_date < makeDate(%d,%d,%d)
 				group by P1.product_code) pos on p.product_code = pos.product_code"""%(branch_code, from_date.year, from_date.month, from_date.day, to_date.year, to_date.month, to_date.day)
-	
-	print(pos_query)
 	
 	# WHOLESALE SALES QUERY
 	ws_query = """LEFT OUTER JOIN (select P1.product_code, sum(pos.amount) as total_amount, sum(pos.qty*prod.content_qty) as total_qty 
@@ -108,13 +104,9 @@ def get_data(from_date, to_date, branch, business_unit, supplier, wh_type_code):
 				P1.mfg_code = prod.mfg_code where branch = '%s' and trans_date >= makeDate(%d,%d,%d) and trans_date < makeDate(%d,%d,%d)
 				group by P1.product_code) ws on p.product_code = ws.product_code"""%(branch_code, from_date.year, from_date.month, from_date.day, to_date.year, to_date.month, to_date.day)
 
-	print(ws_query)
-
 	# Fetch site cost, site price if existing. If not, use basic.
 	sp_query = """LEFT OUTER JOIN (select product_code, landed_cost, retail_price from greports.site_product where site_id = %s) sp on 
 				p.product_code = sp.product_code"""%(site_code)
-
-	print(sp_query)
 
 	query = """select p.item_name, p.barcode, rr.total_qty, inv.total_qty, pos.total_amount, pos.total_qty, ws.total_amount, ws.total_qty,
 			sp.landed_cost, sp.retail_price, p.landed_cost, p.retail_price from greports.product p %s %s %s %s %s %s"""%(rr_query, inv_query, pos_query, ws_query, sp_query, where_clause)
@@ -153,4 +145,7 @@ def get_branch(branch, business_unit): #get branch for POS_DATA table
 	if business_unit == "GROCERY":
 		return branch
 	else:
-		return frappe.db.get_value("Site", {"branch_mapping": branch, "business_unit": "DEPTSTORE", "wh_type_code": "SEA"},"ref_code")
+		return frappe.db.get_value("Site", {"branch_mapping": branch, "business_unit": "DEPTSTORE", "site_type_code": "SEA"},"ref_code")
+	
+def get_ref_code(branch, business_unit, wh_type_code):
+	return frappe.db.get_value("Site", {"branch_mapping": branch, "business_unit": (business_unit if business_unit in ['GROCERY','DEPTSTORE'] else 'DEPTSTORE'), "site_type_code": wh_type_code},"ref_code")

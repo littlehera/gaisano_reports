@@ -1,6 +1,6 @@
 {
  "charts": [],
- "content": "[{\"id\":\"PZcUtFt-4z\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Grocery Reports</span>\",\"col\":12}},{\"id\":\"CowCaUjPWF\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Assortment Report\",\"col\":3}},{\"id\":\"6BSE7k_4V7\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Basket Size Analytics\",\"col\":3}},{\"id\":\"OeDtCeVW9c\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Category Market Share\",\"col\":3}},{\"id\":\"GubOXjz2ns\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Daily Service Level\",\"col\":3}},{\"id\":\"fGoOu-HFUW\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Grocery Category Growth Report\",\"col\":3}},{\"id\":\"2MAbhiOhTr\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Non Moving Skus\",\"col\":3}},{\"id\":\"fXYjh38RpM\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Offtake Report\",\"col\":3}},{\"id\":\"FgmNILPgY3\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Out Of Stock Top Skus\",\"col\":3}},{\"id\":\"VV-FHoUOOY\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Service Level Report\",\"col\":3}},{\"id\":\"Gl08bzYvUY\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Service Level Report Summary\",\"col\":3}},{\"id\":\"rLf9H2ypF2\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Supplier Growth Report\",\"col\":3}},{\"id\":\"BsOHXjr8VH\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Total Supplier RRs\",\"col\":3}},{\"id\":\"hwv8IMJfYw\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Yacapin Branch Ordering Report\",\"col\":3}}]",
+ "content": "[{\"id\":\"PZcUtFt-4z\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Grocery Reports</span>\",\"col\":12}},{\"id\":\"CowCaUjPWF\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Assortment Report\",\"col\":3}},{\"id\":\"6BSE7k_4V7\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Basket Size Analytics\",\"col\":3}},{\"id\":\"OeDtCeVW9c\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Category Market Share\",\"col\":3}},{\"id\":\"GubOXjz2ns\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Daily Service Level\",\"col\":3}},{\"id\":\"fGoOu-HFUW\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Grocery Category Growth Report\",\"col\":3}},{\"id\":\"2MAbhiOhTr\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Non Moving Skus\",\"col\":3}},{\"id\":\"fXYjh38RpM\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Offtake Report\",\"col\":3}},{\"id\":\"FgmNILPgY3\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Out Of Stock Top Skus\",\"col\":3}},{\"id\":\"ZLfhb0mhA5\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"RR Sales Inventory Per Supplier\",\"col\":3}},{\"id\":\"VV-FHoUOOY\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Service Level Report\",\"col\":3}},{\"id\":\"Gl08bzYvUY\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Service Level Report Summary\",\"col\":3}},{\"id\":\"rLf9H2ypF2\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Supplier Growth Report\",\"col\":3}},{\"id\":\"BsOHXjr8VH\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Total Supplier RRs\",\"col\":3}},{\"id\":\"hwv8IMJfYw\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Yacapin Branch Ordering Report\",\"col\":3}}]",
  "creation": "2025-05-02 12:57:31.819901",
  "custom_blocks": [],
  "docstatus": 0,
@@ -13,7 +13,7 @@
  "is_hidden": 0,
  "label": "Grocery Reports",
  "links": [],
- "modified": "2026-02-03 17:56:29.724369",
+ "modified": "2026-02-25 16:13:08.500061",
  "modified_by": "Administrator",
  "module": "Gaisano Reports",
  "name": "Grocery Reports",
@@ -101,6 +101,14 @@
    "doc_view": "List",
    "label": "Total Supplier RRs",
    "link_to": "Total Supplier RRs",
+   "report_ref_doctype": "Supplier",
+   "type": "Report"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "RR Sales Inventory Per Supplier",
+   "link_to": "RR Sales Inventory per Supplier",
    "report_ref_doctype": "Supplier",
    "type": "Report"
   },

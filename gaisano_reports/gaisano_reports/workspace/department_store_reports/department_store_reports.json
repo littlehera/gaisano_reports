@@ -1,6 +1,6 @@
 {
  "charts": [],
- "content": "[{\"id\":\"vC48NRe9hI\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Department Store Reports</span>\",\"col\":12}},{\"id\":\"pD4c96Q_e_\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Basket Size Analytics\",\"col\":3}},{\"id\":\"azXutcfiL2\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Category Market Share\",\"col\":3}},{\"id\":\"voqjawCU4R\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Daily Service Level\",\"col\":3}},{\"id\":\"mJHeHFN0Jd\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Department Sales Report\",\"col\":3}},{\"id\":\"O4rtDAkBst\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Non Moving Skus\",\"col\":3}},{\"id\":\"Blj44nK5_L\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Offtake Report\",\"col\":3}},{\"id\":\"SLmXVLbDkX\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Out Of Stock Top Skus\",\"col\":3}},{\"id\":\"zghLL-F4FT\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Service Level Report\",\"col\":3}},{\"id\":\"r4chkAeMTf\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Service Level Report Summary\",\"col\":3}},{\"id\":\"8cFoLwo0qS\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Supplier Growth Report\",\"col\":3}},{\"id\":\"qPa4ccmfJj\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Setup</b></span>\",\"col\":12}},{\"id\":\"u_Iars47LR\",\"type\":\"card\",\"data\":{\"card_name\":\"Budgetting\",\"col\":4}}]",
+ "content": "[{\"id\":\"vC48NRe9hI\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Department Store Reports</span>\",\"col\":12}},{\"id\":\"pD4c96Q_e_\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Basket Size Analytics\",\"col\":3}},{\"id\":\"azXutcfiL2\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Category Market Share\",\"col\":3}},{\"id\":\"voqjawCU4R\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Daily Service Level\",\"col\":3}},{\"id\":\"mJHeHFN0Jd\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Department Sales Report\",\"col\":3}},{\"id\":\"O4rtDAkBst\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Non Moving Skus\",\"col\":3}},{\"id\":\"Blj44nK5_L\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Offtake Report\",\"col\":3}},{\"id\":\"SLmXVLbDkX\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Out Of Stock Top Skus\",\"col\":3}},{\"id\":\"hBCv9nYs4I\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"RR Sales Inventory Per Supplier\",\"col\":3}},{\"id\":\"zghLL-F4FT\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Service Level Report\",\"col\":3}},{\"id\":\"r4chkAeMTf\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Service Level Report Summary\",\"col\":3}},{\"id\":\"8cFoLwo0qS\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Supplier Growth Report\",\"col\":3}},{\"id\":\"qPa4ccmfJj\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Setup</b></span>\",\"col\":12}},{\"id\":\"u_Iars47LR\",\"type\":\"card\",\"data\":{\"card_name\":\"Budgetting\",\"col\":4}}]",
  "creation": "2025-05-02 12:58:01.689893",
  "custom_blocks": [],
  "docstatus": 0,
@@ -33,7 +33,7 @@
    "type": "Link"
   }
  ],
- "modified": "2026-02-10 10:42:32.468833",
+ "modified": "2026-02-25 16:13:36.422987",
  "modified_by": "Administrator",
  "module": "Gaisano Reports",
  "name": "Department Store Reports",
@@ -78,6 +78,14 @@
    "doc_view": "List",
    "label": "Service Level Report",
    "link_to": "Service Level Report",
+   "report_ref_doctype": "Supplier",
+   "type": "Report"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "RR Sales Inventory Per Supplier",
+   "link_to": "RR Sales Inventory per Supplier",
    "report_ref_doctype": "Supplier",
    "type": "Report"
   },
