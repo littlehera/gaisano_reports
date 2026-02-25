@@ -80,7 +80,7 @@ def get_data(from_date, to_date, branch, business_unit, supplier, wh_type_code):
 
 	rr_query = """LEFT OUTER JOIN (select P.product_code as product_code, C.product_code as case_code, sum(C.quantity * C.content_quantity) as total_qty 
 				from greports.barter_rr_item C join (select mfg_code, product_code from greports.product) mfg on C.product_code = mfg.product_code
-				join (select product_code, mfg_code from greports.product where content_qty = 1) P on mfg.mfg_code = P.mfg_code
+				join (select product_code, mfg_code from greports.product where product_type = '') P on mfg.mfg_code = P.mfg_code
 				where C.supplier_id = %s and C.date >=makeDate(%d,%d,%d) and C.date < makeDate(%d,%d,%d) and C.status = 'P' and C.site_code = '%s'
 				group by P.product_code, C.product_code) rr on p.product_code = rr.product_code"""%(supplier, from_date.year, from_date.month, from_date.day, to_date.year, to_date.month, to_date.day, site_code)
 
@@ -94,19 +94,19 @@ def get_data(from_date, to_date, branch, business_unit, supplier, wh_type_code):
 
 	# REGULAR SALES QUERY
 	pos_query = """LEFT OUTER JOIN (select P1.product_code, sum(pos.amount) as total_amount, sum(pos.qty) as total_qty from greports.pos_data pos join 
-				(select mfg_code, barcode from greports.product where content_qty = 1) prod on pos.barcode = prod.barcode 
-				join (select product_code, mfg_code from greports.product where content_qty = 1) P1 on P1.mfg_code = prod.mfg_code where branch = '%s' 
+				(select mfg_code, barcode from greports.product where product_type = '') prod on pos.barcode = prod.barcode 
+				join (select product_code, mfg_code from greports.product where product_type = '') P1 on P1.mfg_code = prod.mfg_code where branch = '%s' 
 				and trans_date >= makeDate(%d,%d,%d) and trans_date < makeDate(%d,%d,%d)
-				group by P1.product_code, pos.barcode) pos on p.product_code = pos.product_code"""%(branch_code, from_date.year, from_date.month, from_date.day, to_date.year, to_date.month, to_date.day)
+				group by P1.product_code) pos on p.product_code = pos.product_code"""%(branch_code, from_date.year, from_date.month, from_date.day, to_date.year, to_date.month, to_date.day)
 	
 	print(pos_query)
 	
 	# WHOLESALE SALES QUERY
 	ws_query = """LEFT OUTER JOIN (select P1.product_code, sum(pos.amount) as total_amount, sum(pos.qty*prod.content_qty) as total_qty 
-				from greports.pos_data pos join (select mfg_code, barcode, content_qty from greports.product where content_qty > 1) 
-				prod on pos.barcode = prod.barcode join (select product_code, mfg_code from greports.product where content_qty = 1) P1 on 
+				from greports.pos_data pos join (select mfg_code, barcode, content_qty from greports.product where content_qty > 1 and product_type = 'P') 
+				prod on pos.barcode = prod.barcode join (select product_code, mfg_code from greports.product where product_type = '') P1 on 
 				P1.mfg_code = prod.mfg_code where branch = '%s' and trans_date >= makeDate(%d,%d,%d) and trans_date < makeDate(%d,%d,%d)
-				group by P1.product_code, pos.barcode,prod.content_qty) ws on p.product_code = ws.product_code"""%(branch_code, from_date.year, from_date.month, from_date.day, to_date.year, to_date.month, to_date.day)
+				group by P1.product_code) ws on p.product_code = ws.product_code"""%(branch_code, from_date.year, from_date.month, from_date.day, to_date.year, to_date.month, to_date.day)
 
 	print(ws_query)
 
