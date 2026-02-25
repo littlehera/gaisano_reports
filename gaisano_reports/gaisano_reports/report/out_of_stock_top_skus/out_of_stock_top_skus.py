@@ -8,12 +8,12 @@ from gaisano_reports.dbutils import get_clickhouse_client
 def execute(filters=None):
 	columns, data = [], []
 
-	to_date = datetime.datetime.strptime(filters.get('to_date'),"%Y-%m-%d")
+	to_date = datetime.datetime.strptime(filters.get('to_date'),"%Y-%m-%d")+datetime.timedelta(days=1)
 	branch = filters.get("branch")
 	supplier = filters.get("supplier") if filters.get("supplier") is not None else ""
 	business_unit = filters.get("business_unit")
 
-	data = get_data(branch, supplier, business_unit)
+	data = get_data(branch, supplier, business_unit, to_date)
 
 	columns = [
 		{"label": "Item Name", "fieldname": "item_name", "fieldtype": "Data", "width": 250},
@@ -26,7 +26,7 @@ def execute(filters=None):
 
 	return columns, data
 
-def get_data(branch, supplier, business_unit):
+def get_data(branch, supplier, business_unit, to_date):
 	data = []
 	where_clause = ""
 	conditions = []
@@ -47,8 +47,12 @@ def get_data(branch, supplier, business_unit):
 
 	client = get_clickhouse_client()
 
-	query = """select INV.site_code, INV.on_hand_quantity, P.item_name, P.barcode, S.supplier_name, P.status from greports.site_inventory INV 
-				join greports.product P on P.product_code = INV.product_code JOIN greports.supplier S on S.sup_id = P.supplier_id %s"""%(where_clause)
+	inv_query = """JOIN (select site_code, product_code, sum(quantity) as on_hand_quantity from greports.inventory_movement where site_code = '%s' 
+				and doc_date<makeDate(%d,%d,%d)	group by site_code, product_code) INV on P.product_code = INV.product_code"""%(site_code, to_date.year, to_date.month, to_date.day)
+
+
+	query = """select INV.site_code, INV.on_hand_quantity, P.item_name, P.barcode, S.supplier_name, P.status from greports.product P 
+			%s JOIN greports.supplier S on S.sup_id = P.supplier_id %s"""%(inv_query, where_clause)
 
 	rows = client.query(query).result_rows
 

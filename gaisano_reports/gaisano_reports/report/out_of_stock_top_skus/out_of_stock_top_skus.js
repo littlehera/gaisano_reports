@@ -8,7 +8,7 @@ frappe.query_reports["Out of Stock Top SKUs"] = {
 		"fieldtype": "Date",
 		"label": "To Date",
 		"default": frappe.datetime.get_today(),
-		"read_only": 1,
+		"read_only": 0,
 		"reqd": 1
 		},
 		{
