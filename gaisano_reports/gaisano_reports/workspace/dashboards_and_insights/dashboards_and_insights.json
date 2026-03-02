@@ -1,0 +1,37 @@
+{
+ "charts": [],
+ "content": "[{\"id\":\"WCMzeBSxa4\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Dashboards and Insights</span><span class=\\\"h4\\\"><b></b></span>\",\"col\":12}},{\"id\":\"wPS_1eU2Ux\",\"type\":\"paragraph\",\"data\":{\"text\":\"Open the Insights App here:\",\"col\":12}},{\"id\":\"uowxfk6s5K\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Frappe Insights\",\"col\":3}}]",
+ "creation": "2026-02-27 18:06:54.242113",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "color-rank",
+ "idx": 0,
+ "indicator_color": "green",
+ "is_hidden": 0,
+ "label": "Dashboards and Insights",
+ "links": [],
+ "modified": "2026-03-02 09:55:14.577623",
+ "modified_by": "Administrator",
+ "module": "Gaisano Reports",
+ "name": "Dashboards and Insights",
+ "number_cards": [],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [],
+ "sequence_id": 25.0,
+ "shortcuts": [
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Frappe Insights",
+   "type": "URL",
+   "url": "/insights/dashboards"
+  }
+ ],
+ "title": "Dashboards and Insights"
+}
