@@ -48,7 +48,7 @@ def get_data(branch, supplier, business_unit, to_date):
 	client = get_clickhouse_client()
 
 	inv_query = """JOIN (select site_code, product_code, sum(quantity) as on_hand_quantity from greports.inventory_movement where site_code = '%s' 
-				and doc_date<makeDate(%d,%d,%d)	group by site_code, product_code) INV on P.product_code = INV.product_code"""%(site_code, to_date.year, to_date.month, to_date.day)
+				and post_date<makeDate(%d,%d,%d) group by site_code, product_code) INV on P.product_code = INV.product_code"""%(site_code, to_date.year, to_date.month, to_date.day)
 
 
 	query = """select INV.site_code, INV.on_hand_quantity, P.item_name, P.barcode, S.supplier_name, P.status from greports.product P 

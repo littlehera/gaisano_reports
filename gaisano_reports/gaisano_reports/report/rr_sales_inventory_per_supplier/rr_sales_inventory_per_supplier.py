@@ -88,7 +88,7 @@ def get_data(from_date, to_date, branch, business_unit, supplier, wh_type_code):
 
 	# INVENTORY QUERY
 	inv_query = """LEFT OUTER JOIN (select product_code, sum(quantity) as total_qty from greports.inventory_movement where site_code = '%s' 
-				and doc_date<makeDate(%d,%d,%d)	group by product_code) inv on p.product_code = inv.product_code"""%(site_code, to_date.year, to_date.month, to_date.day)
+				and post_date<makeDate(%d,%d,%d)	group by product_code) inv on p.product_code = inv.product_code"""%(site_code, to_date.year, to_date.month, to_date.day)
 
 	# REGULAR SALES QUERY
 	pos_query = """LEFT OUTER JOIN (select P1.product_code as product_code, sum(pos.amount) as total_amount, sum(pos.qty) as total_qty from greports.pos_data pos join 
