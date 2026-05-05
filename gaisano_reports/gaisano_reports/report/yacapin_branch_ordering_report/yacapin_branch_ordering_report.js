@@ -11,6 +11,21 @@ frappe.query_reports["Yacapin Branch Ordering Report"] = {
 		"reqd": 1
 		},
 		{
+		"fieldname": "past_eight_weeks",
+		"fieldtype": "Check",
+		"label": "Past 8 Weeks?",
+		"on_change": function(query_report){
+			var past_eight_weeks = frappe.query_report.get_filter_value('past_eight_weeks');
+			if (past_eight_weeks){
+				var to_date = frappe.datetime.add_days(frappe.datetime.get_today(),-1);
+				frappe.query_report.set_filter_value('to_date',to_date);
+				var from_date = frappe.datetime.add_days(frappe.datetime.get_today(),-56);
+				frappe.query_report.set_filter_value('from_date',from_date);
+			}
+			frappe.query_report.refresh()
+			}
+		},
+		{
 		"fieldname": "from_date",
 		"fieldtype": "Date",
 		"label": "From Date",
@@ -20,7 +35,7 @@ frappe.query_reports["Yacapin Branch Ordering Report"] = {
 		"fieldname": "to_date",
 		"fieldtype": "Date",
 		"label": "To Date",
-		"reqd": 1
+		"reqd": 1,
 		},
 		{
 		"fieldname": "branch",
