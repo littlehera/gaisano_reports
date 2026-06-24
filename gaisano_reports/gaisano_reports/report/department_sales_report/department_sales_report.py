@@ -62,12 +62,12 @@ def get_query_data(ly_from_date, ly_to_date, from_date, to_date, branches, divis
 	data = []
 	conditions = []
 	ly_conditions = []
+	main_where_conditions = []
 	where_clause = ""	
 	ly_where_clause = ""
 	main_where_clause = ""
 	group_by_clause = ""
 	group_by_list = []
-
 
 	client = get_clickhouse_client()
 
@@ -87,28 +87,35 @@ def get_query_data(ly_from_date, ly_to_date, from_date, to_date, branches, divis
 	if division != "" and division is not None:
 		conditions.append("prod.division_id = %s"%(division))
 		ly_conditions.append("prod.division_id = %s"%(division))
+		main_where_conditions.append("division_id = %s"%(division))
 
 	if department != "" and department is not None:
 		conditions.append("prod.department_id = %s"%(department))
 		ly_conditions.append("prod.department_id = %s"%(department))
-	
+		main_where_conditions.append("department_id = %s"%(department))
+
 	if section != "" and section is not None:
 		conditions.append("prod.section_id = %s"%(section))
 		ly_conditions.append("prod.section_id = %s"%(section))
-		
+		main_where_conditions.append("section_id = %s"%(section))
 
 	if category != "" and category is not None:
 		conditions.append("prod.category_id = %s"%(category))
 		ly_conditions.append("prod.category_id = %s"%(category))
-	
+		main_where_conditions.append("category_id = %s"%(category))
+
 	if division_list !="" and division_list is not None:
 		conditions.append("prod.division_id in %s"%division_list)
 		ly_conditions.append("prod.division_id in %s"%division_list)
-		main_where_clause += "WHERE division_id in %s "%division_list
-		
+		main_where_conditions.append("division_id in %s "%division_list)
+
 	group_by_clause = ",".join(group_by_list)
 	if group_by_clause != "":
 		group_by_clause = " group by " + group_by_clause + " order by " + group_by_clause
+
+	main_where_clause = " AND ".join(main_where_conditions)
+	if main_where_clause != "":
+		main_where_clause = "WHERE " + main_where_clause
 
 	where_clause = " AND ".join(conditions)
 	if where_clause != "":
@@ -117,6 +124,7 @@ def get_query_data(ly_from_date, ly_to_date, from_date, to_date, branches, divis
 	ly_where_clause = " AND ".join(ly_conditions)
 	if ly_where_clause != "":
 		ly_where_clause = "WHERE " + ly_where_clause
+	
 	
 	ty_con_query = """LEFT OUTER JOIN (select prod.division_id, prod.department_id, prod.section_id, prod.category_id,
 				concat(prod.division_id, '-', prod.department_id, '-', prod.section_id, '-', prod.category_id) as id, sum(pos.amount) as amount from greports.product prod 
@@ -217,31 +225,3 @@ def get_category_name(cat_type, id):
 		return frappe.db.get_value("Item Section", id, "category_name")
 	elif cat_type == "category":
 		return frappe.db.get_value("Item Category", id, "category_name")
-
-
-# def data_sort(data):
-# 	for row in data:
-
-# 		row["growth_concession"] = ((row["ty_amount_concession"] - row["ly_amount_concession"])/row["ly_amount_concession"]*100) if row["ly_amount_concession"] != 0 else 0
-# 		row["growth_outright"] = ((row["ty_amount_outright"] - row["ly_amount_outright"])/row["ly_amount_outright"]*100) if row["ly_amount_outright"] != 0 else 0
-# 		row["growth_total"] = ((row["ty_amount_total"] - row["ly_amount_total"])/row["ly_amount_total"]*100) if row["ly_amount_total"] != 0 else 0
-
-# 		try:
-# 			row['division']= get_category_name("division", row["division"])
-# 		except:
-# 			row['division'] = ""
-# 		try:
-# 			row['department']= get_category_name("department", row["department"])
-# 		except:
-# 			row['department'] = ""
-# 		try:
-# 			row['section']= get_category_name("section", row["section"])
-# 		except:
-# 			row['section'] = ""
-# 		try:
-# 			row['category']= get_category_name("category", row["category"])
-# 		except:
-# 			row['category'] = ""
-	
-# 	data.sort(key=lambda x: (x["division"] or "", x["department"] or "", x["section"] or "", x["category"] or ""))
-# 	return data
