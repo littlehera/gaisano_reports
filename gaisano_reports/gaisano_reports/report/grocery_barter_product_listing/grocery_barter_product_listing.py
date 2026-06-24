@@ -61,7 +61,7 @@ def get_data(site, supplier):
 				on S2.product_code = C.product_code
 				LEFT OUTER JOIN (select product_code, barcode from greports.product where is_main_alternate = true and product_type = 'A')
 				as A on A.product_code = B.product_code
-				where I.sup_id = %s order by I.product_code asc
+				where I.sup_id = %s and B.product_type = '' order by I.product_code asc
 
 				"""%(site, site, supplier, site, site, supplier)
 	
