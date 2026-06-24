@@ -47,7 +47,23 @@ def get_data(site, supplier):
 				on S2.product_code = C.product_code
 				LEFT OUTER JOIN (select product_code, barcode from greports.product where is_main_alternate = true and product_type = 'A')
 				as A on A.product_code = B.product_code
-				where B.product_type = '' and B.supplier_id = %s order by B.product_code asc"""%(site, site, supplier)
+				where B.product_type = '' and B.supplier_id = %s order by B.product_code asc
+				
+				UNION ALL
+				
+				select I.product_code, B.item_name, B.barcode, B.mfg_code, I.landed_cost, I.po_discount, B.bo_discount, I.status, C.barcode, C.content_qty,
+				C.landed_cost, S.landed_cost, S.po_discount, S.bo_discount, S.status, A.barcode, S2.landed_cost from greports.alt_supplier I join greports.product B
+				on I.product_code = B.product_code left outer join (select product_code, mfg_code, barcode, content_qty, landed_cost from greports.product where content_qty > 1 and product_type = 'P' and 
+				is_ordering_unit = true) as C on C.mfg_code = B.mfg_code left outer join 
+				(select product_code, landed_cost, po_discount, bo_discount, status from greports.site_product where site_id=%s) as S
+				on S.product_code = B.product_code left outer join 
+				(select product_code, landed_cost, po_discount, bo_discount, status from greports.site_product where site_id=%s) as S2
+				on S2.product_code = C.product_code
+				LEFT OUTER JOIN (select product_code, barcode from greports.product where is_main_alternate = true and product_type = 'A')
+				as A on A.product_code = B.product_code
+				where I.sup_id = %s order by I.product_code asc
+
+				"""%(site, site, supplier, site, site, supplier)
 	
 	rows = client.query(query).result_rows
 	for row in rows:
