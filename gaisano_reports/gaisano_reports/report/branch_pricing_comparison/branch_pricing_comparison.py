@@ -127,7 +127,7 @@ def get_columns(branches, bu, report_type):
 		if ref_code is None or ref_code=='None':
 			continue
 		columns.append({"fieldname": ref_code, "label": ref_code, "fieldtype": "float", "precision": 2,"width": 150})
-	columns.append({"fieldname": "average_price", "label": "Average Price", "fieldtype": "float", "precision": 2,"width": 150})
+	columns.append({"fieldname": "average_price", "label": "Average", "fieldtype": "float", "precision": 2,"width": 150})
 	return columns
 
 def get_all_branches():

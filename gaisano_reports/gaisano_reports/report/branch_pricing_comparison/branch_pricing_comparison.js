@@ -38,6 +38,26 @@ frappe.query_reports["Branch Pricing Comparison"] = {
 		"label": "Supplier",
 		"options": "Supplier",
 		"reqd": 1
+		},
+		{
+		"fieldname": "perc_diff",
+		"fieldtype": "Float",
+		"label": "Percent Difference",
+		"default": 5,
+		"reqd": 1
 		}
-	]
+	],
+	"formatter": function(value, row, column, data, default_formatter) {
+		value = default_formatter(value, row, column, data);
+		if(typeof data[column.id]=='number'){
+			if(column.id!='average_price'){
+				var average = row[row.length-1].content
+				var current = data[column.id]
+				var perc_diff = frappe.query_report.get_filter_value('perc_diff');
+				if(Math.abs(current - average) / average > perc_diff / 100)
+					value = '<div style="background: rgb(245, 161, 161); color: rgb(128, 5, 5); font-weight: bold; margin:0px; padding:0px;">'+value+'</div>'
+			}
+		}
+		return value
+	}
 };
