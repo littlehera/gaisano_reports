@@ -43,6 +43,9 @@ def get_data(branches, bu, supplier, report_type):
 			master_conditions.append("product_code in (select product_code from greports.product where division_id in %s)"%(division_list))
 			site_conditions.append("P.product_code in (select product_code from greports.product where division_id in %s)"%(division_list))
 		
+	master_conditions.append("product_type in ('','P')")
+	site_conditions.append("P.product_type in ('','P')")
+
 	ref_codes = "("
 	if branches == '':
 		branches = get_all_branches()
