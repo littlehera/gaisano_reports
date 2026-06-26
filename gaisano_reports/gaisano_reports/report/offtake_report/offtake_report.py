@@ -13,13 +13,12 @@ def execute(filters=None):
 	to_date = datetime.datetime.strptime(filters.get('to_date'),"%Y-%m-%d")
 	branch = filters.get("branch")
 	business_unit = filters.get("business_unit")
-	division = filters.get("division") if filters.get("division") is not None else ""
 	supplier = filters.get("supplier")
 
 	if report_type == "Past 90 Days":
-		data = get_data_3months(from_date, to_date, branch, business_unit, supplier, division)
+		data = get_data_3months(from_date, to_date, branch, business_unit, supplier)
 	else:
-		data = get_data_total(from_date, to_date, branch, business_unit, supplier, division)
+		data = get_data_total(from_date, to_date, branch, business_unit, supplier)
 	columns = get_columns(report_type, from_date, to_date)
 
 	return columns, data
@@ -69,15 +68,12 @@ def get_columns(report_type, from_date, to_date):
 		]
 	return columns
 
-def get_data_total(from_date, to_date, branch, business_unit, supplier, division = None):
+def get_data_total(from_date, to_date, branch, business_unit, supplier):
 	data = []
 	where_clause = ""
 	conditions = []
 
 	to_date += datetime.timedelta(days=1) 
-
-	if division != "":
-		conditions.append("p.division_id = %s"%division)
 
 	conditions.append("p.supplier_id = %s"%supplier)
 	conditions.append("p.product_type !='P' and p.product_type !='A'")
@@ -134,7 +130,7 @@ def get_data_total(from_date, to_date, branch, business_unit, supplier, division
 
 	return data
 
-def get_data_3months(from_date, to_date, branch, business_unit, supplier, division = None):
+def get_data_3months(from_date, to_date, branch, business_unit, supplier):
 	data, m1_data, m2_data, m3_data = [], [], [], []
 	raw_data = []
 	where_clause = ""
@@ -152,10 +148,10 @@ def get_data_3months(from_date, to_date, branch, business_unit, supplier, divisi
 	# print(m2_from, m2_to)
 	# print(m3_from, m3_to)
 
-	total_data = get_data_total(from_date, to_date, branch, business_unit, supplier, division)
-	m1_data = get_data_total(m1_from, m1_to, branch, business_unit, supplier, division)
-	m2_data = get_data_total(m2_from, m2_to, branch, business_unit, supplier, division)
-	m3_data = get_data_total(m3_from, m3_to, branch, business_unit, supplier, division)
+	total_data = get_data_total(from_date, to_date, branch, business_unit, supplier)
+	m1_data = get_data_total(m1_from, m1_to, branch, business_unit, supplier)
+	m2_data = get_data_total(m2_from, m2_to, branch, business_unit, supplier)
+	m3_data = get_data_total(m3_from, m3_to, branch, business_unit, supplier)
 
 	for row in total_data:
 		data.append({

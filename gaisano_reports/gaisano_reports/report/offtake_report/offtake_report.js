@@ -56,13 +56,6 @@ frappe.query_reports["Offtake Report"] = {
 		"reqd": 1
 		},
 		{
-		"fieldname": "division",
-		"fieldtype": "Link",
-		"label": "Item Division",
-		"options": "Item Division",
-		"reqd": 1
-		},
-		{
 		"fieldname": "supplier",
 		"fieldtype": "Link",
 		"label": "Supplier",

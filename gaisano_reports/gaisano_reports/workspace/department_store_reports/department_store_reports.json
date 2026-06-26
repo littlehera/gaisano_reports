@@ -33,7 +33,7 @@
    "type": "Link"
   }
  ],
- "modified": "2026-02-25 16:13:36.422987",
+ "modified": "2026-06-26 16:31:22.069985",
  "modified_by": "Administrator",
  "module": "Gaisano Reports",
  "name": "Department Store Reports",
@@ -68,6 +68,14 @@
   {
    "color": "Grey",
    "doc_view": "List",
+   "label": "Offtake Report",
+   "link_to": "DS Offtake Report",
+   "report_ref_doctype": "Supplier",
+   "type": "Report"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
    "label": "Basket Size Analytics",
    "link_to": "Basket Size Analytics",
    "report_ref_doctype": "Peso Value",
@@ -86,14 +94,6 @@
    "doc_view": "List",
    "label": "RR Sales Inventory Per Supplier",
    "link_to": "RR Sales Inventory per Supplier",
-   "report_ref_doctype": "Supplier",
-   "type": "Report"
-  },
-  {
-   "color": "Grey",
-   "doc_view": "List",
-   "label": "Offtake Report",
-   "link_to": "Offtake Report",
    "report_ref_doctype": "Supplier",
    "type": "Report"
   },
