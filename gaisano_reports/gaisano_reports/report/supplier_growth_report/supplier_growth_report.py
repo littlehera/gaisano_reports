@@ -23,9 +23,12 @@ def get_branch(branch, business_unit):
 	if business_unit == "GROCERY":
 		return branch
 	else:
-		branches = frappe.db.sql("""SELECT ref_code from `tabSite` where branch_mapping = %s and ref_code like '%DSSA%'""", branch)
+		print(branch, business_unit, "'%DSSA'")
+		branches = frappe.db.sql("""SELECT ref_code from `tabSite` where branch_mapping = %s and site_type_code = 'SEA'""", (branch), as_dict=True)
+		print(branches)
 		branch_list = [b.ref_code for b in branches]
-		return branch_list[0][0] if branch_list else None
+		print(branch_list)
+		return branch_list[0] if branch_list else None
 	
 def get_data(from_date, to_date, branch, supplier):
 	data = []
